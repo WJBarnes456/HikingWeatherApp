@@ -5,4 +5,17 @@ public enum PrecipitationType {
     SNOW,
     SLEET,
     NONE;
+
+    public static PrecipitationType typeFromString(String type) {
+        switch(type) {
+            case "rain":
+                return RAIN;
+            case "snow":
+                return SNOW;
+            case "sleet":
+                return SLEET;
+            default:
+                return NONE;
+        }
+    }
 }

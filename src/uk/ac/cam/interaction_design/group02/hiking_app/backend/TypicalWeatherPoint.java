@@ -30,7 +30,7 @@ public class TypicalWeatherPoint {
 
         // Find the closest valid forecast for this point
         for(WeatherData data : typicalDataPoints) {
-            long timeOfForecast = data.getTimeOfForecast();
+            long timeOfForecast = data.getTimeForData();
             long timeDelta = Math.abs(timeToGet - timeOfForecast);
             if(timeDelta < data.getForecastType().getValidTime() && timeDelta < bestDelta) {
                 bestDelta = timeDelta;

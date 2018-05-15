@@ -36,7 +36,7 @@ public class ForecastWeatherPoint {
 
         // Find the closest valid forecast for this point
         for(WeatherData data : forecast) {
-            long timeOfForecast = data.getTimeOfForecast();
+            long timeOfForecast = data.getTimeForData();
             long timeDelta = Math.abs(timeToGet - timeOfForecast);
             if(timeDelta < data.getForecastType().getValidTime() && timeDelta < bestDelta) {
                 bestDelta = timeDelta;
@@ -65,7 +65,7 @@ public class ForecastWeatherPoint {
         // Find the closest valid forecast for this point
         for(WeatherData data : forecast) {
             ForecastType forecastType = data.getForecastType();
-            long timeOfForecast = data.getTimeOfForecast();
+            long timeOfForecast = data.getTimeForData();
             long timeDelta = Math.abs(timeToGet - timeOfForecast);
             if(forecastType == type && timeDelta < type.getValidTime() && timeDelta < bestDelta) {
                 bestDelta = timeDelta;

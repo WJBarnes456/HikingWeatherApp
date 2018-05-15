@@ -38,7 +38,7 @@ public class HomeControl extends GridPane {
         try {
             ForecastWeatherPoint point = api.getWeatherForPoint(settings.getUserLatitude(), settings.getUserLongitude());
             WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis()/1000);
-            double temp = currentWeather.getTemperatureCelsius();
+            double temp = currentWeather.getAvgTemperatureCelsius();
             double humidity = currentWeather.getHumidity();
             currentWeatherText.setText(String.format("Current weather: %s degrees Celsius, humidity %s", temp, humidity));
         } catch (APIException e) {
@@ -56,7 +56,7 @@ public class HomeControl extends GridPane {
 
                 ForecastWeatherPoint point = api.getWeatherForPoint(hikeLat, hikeLong);
                 WeatherData forecast = point.getForecastAtTime(h.getStartTime());
-                double temp = forecast.getTemperatureFahrenheit();
+                double temp = forecast.getAvgTemperatureFahrenheit();
                 double humidity = forecast.getHumidity();
 
                 weatherString = String.format("%s degrees Fahrenheit, humidity %s", temp, humidity);

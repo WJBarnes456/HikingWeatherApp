@@ -5,9 +5,11 @@ package uk.ac.cam.interaction_design.group02.hiking_app.backend;
  * Immutable class representing a piece of weather data
  */
 public class WeatherData {
-    private long timeOfForecast;
+    private long timeForData;
 
-    private double temperatureCelsius;
+    private double highTempCelsius;
+    private double lowTempCelsius;
+
     private double pressure;
     private double humidity;
 
@@ -17,10 +19,11 @@ public class WeatherData {
     private ForecastType forecastType;
     private PrecipitationType precipitationType;
 
-    public WeatherData(long timeOfForecast, double temperatureCelsius, double pressure, double humidity,
+    public WeatherData(long timeForData, double highTempCelsius, double lowTempCelsius, double pressure, double humidity,
                        double precipitationIntensity, double precipitationProbability,
                        ForecastType forecastType, PrecipitationType precipitationType) {
-        this.temperatureCelsius = temperatureCelsius;
+        this.highTempCelsius = highTempCelsius;
+        this.lowTempCelsius = lowTempCelsius;
         this.pressure = pressure;
         this.humidity = humidity;
 
@@ -28,23 +31,61 @@ public class WeatherData {
         this.precipitationProbability = precipitationProbability;
         this.forecastType = forecastType;
         this.precipitationType = precipitationType;
-        this.timeOfForecast = timeOfForecast;
+        this.timeForData = timeForData;
     }
 
-    public long getTimeOfForecast() {
-        return timeOfForecast;
+    public long getTimeForData() {
+        return timeForData;
     }
 
-    public double getTemperatureKelvin() {
-        return temperatureCelsius-273.15;
+    private double celsiusToKelvin(double celsius) {
+        return celsius + 273.15;
     }
 
-    public double getTemperatureCelsius() {
-        return temperatureCelsius;
+    private double celsiusToFahrenheit(double celsius) {
+        return 9*celsius/5 + 32;
     }
 
-    public double getTemperatureFahrenheit() {
-        return 9*getTemperatureCelsius()/5 + 32;
+    // Average temperature getters
+
+    public double getAvgTemperatureKelvin() {
+        return celsiusToKelvin(getAvgTemperatureCelsius());
+    }
+
+    public double getAvgTemperatureCelsius() {
+        return (highTempCelsius + lowTempCelsius)/2;
+    }
+
+    public double getAvgTemperatureFahrenheit() {
+        return celsiusToFahrenheit(getAvgTemperatureCelsius());
+    }
+
+    // High temperature getters
+
+    public double getHighTemperatureKelvin() {
+        return celsiusToKelvin(getHighTemperatureCelsius());
+    }
+
+    public double getHighTemperatureCelsius() {
+        return highTempCelsius;
+    }
+
+    public double getHighTemperatureFahrenheit() {
+        return celsiusToFahrenheit(getHighTemperatureCelsius());
+    }
+
+    // Low temperature getters
+
+    public double getLowTemperatureKelvin() {
+        return celsiusToKelvin(getLowTemperatureCelsius());
+    }
+
+    public double getLowTemperatureCelsius() {
+        return lowTempCelsius;
+    }
+
+    public double getLowTemperatureFahrenheit() {
+        return celsiusToFahrenheit(getLowTemperatureCelsius());
     }
 
     public double getPressure() {

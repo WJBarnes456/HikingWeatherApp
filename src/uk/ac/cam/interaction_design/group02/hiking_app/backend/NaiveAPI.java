@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.spi.CalendarNameProvider;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -28,8 +29,6 @@ public class NaiveAPI implements IAPICache {
      */
     private static final int YEARS_FOR_TYPICAL = 3;
 
-    private static final long SECONDS_IN_YEAR = 365*24*60*60;
-
     /**
      * Tolerance for equality of locations in metres
      */
@@ -38,10 +37,10 @@ public class NaiveAPI implements IAPICache {
     /**
      * URL for doing a typical data lookup - we're only interested in the data for that day.
      */
-    private static final String TYPICAL_DATA_LOOKUP_URL = "https://api.darksky.net/forecast/%s/%s,%s,%s?exclude=currently,minutely,hourly";
+    private static final String TYPICAL_DATA_LOOKUP_URL = "https://api.darksky.net/forecast/%s/%s,%s,%s?exclude=currently,minutely,hourly&units=si";
 
-    private List<ForecastWeatherPoint> forecastCache;
-    private List<TypicalWeatherPoint> typicalWeatherPoints;
+    private List<ForecastWeatherPoint> forecastCache = new ArrayList<>();
+    private List<TypicalWeatherPoint> typicalWeatherPoints = new ArrayList<>();
     private static NaiveAPI instance;
 
     /**
@@ -51,26 +50,49 @@ public class NaiveAPI implements IAPICache {
      */
     private ForecastWeatherPoint fetchWeatherUsingAPI(double latitude, double longitude) throws APIException {
         List<WeatherData> data = List.of(new WeatherData(System.currentTimeMillis()/1000, 10, 0, 1000, 1,
-                0.1, 0.5, ForecastType.MINUTELY, PrecipitationType.RAIN));
+                0.1, 0.5, 7, ForecastType.MINUTELY, PrecipitationType.RAIN));
         return new ForecastWeatherPoint(latitude, longitude, System.currentTimeMillis()/1000, data);
     }
 
+    /**
+     * Fetch typical weather for a point-time combo using the API, caching it in the point
+     * @param point The point to fetch weather for
+     * @param time The time (rounded to the day) to fetch weather for
+     * @return Typical weather for that day averaged over the past YEARS_FOR_TYPICAL years
+     * @throws APIException When the API doesn't respond
+     */
     private WeatherData fetchTypicalWeatherForPoint(TypicalWeatherPoint point, long time) throws APIException {
         double latitude = point.getLatitude();
         double longitude = point.getLongitude();
 
-        double avgTemperatureCelsius = 0;
-        double avgPressure = 0;
-        double avgHumidity = 0;
+        double totalHighTempCelsius = 0;
+        double totalLowTempCelsius = 0;
+        double totalPressure = 0;
+        double totalHumidity = 0;
+        double totalVisibility = 0;
 
-        double avgPrecipitationIntensity = 0;
-        double avgPrecipitationProbability = 0;
+        double totalPrecipIntensity = 0;
+        double totalPrecipProbability = 0;
         ForecastType forecastType = ForecastType.DAILY;
         List<PrecipitationType> precipitationTypes = new ArrayList<>();
 
+        //Create a calendar so we can scale back years without worrying about leap years etc
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(time*1000);
+
+        //While the time on the calendar is after today
+        while(c.getTime().after(new Date())) {
+            // Scale back by a year
+            c.add(Calendar.YEAR, -1);
+        }
+
         //We're interested in the typical data, so take an average of the previous three years
         for(int i = 0; i < YEARS_FOR_TYPICAL; i++) {
-            long lookupTime = time - (i+1)*SECONDS_IN_YEAR;
+            //Gets the current time on the calendar (which is set to the first corresponding date of year before now)
+            long lookupTime = c.getTime().getTime() / 1000;
+
+            //Go back a year (now we've extracted the epoch time, we can do this safely
+            c.add(Calendar.YEAR, -1);
 
             // Fetch JSON file from DarkSky using code from https://stackoverflow.com/a/1485730
             try {
@@ -87,9 +109,12 @@ public class NaiveAPI implements IAPICache {
                 rd.close();
                 String resultFromAPI = result.toString();
 
+                //Now we've fetched the result, convert it into a JSON object
+
                 JSONObject dailyResult = new JSONObject(resultFromAPI).getJSONObject("daily")
                         .getJSONArray("data").getJSONObject(0);
 
+                //Extract required information
                 double highTempCelsius = dailyResult.getDouble("temperatureHigh");
                 double lowTempCelsius = dailyResult.getDouble("temperatureLow");
                 double pressure = dailyResult.getDouble("pressure");
@@ -97,8 +122,26 @@ public class NaiveAPI implements IAPICache {
 
                 double precipIntensity = dailyResult.getDouble("precipIntensity");
                 double precipProbability = dailyResult.getDouble("precipProbability");
+                double visibility = dailyResult.getDouble("visibility");
 
-                //TODO: Implement averaging
+                PrecipitationType type;
+                try {
+                    type = PrecipitationType.typeFromString(dailyResult.getString("precipType"));
+                } catch (JSONException e) {
+                    type = PrecipitationType.NONE;
+                }
+
+                //Sum up all the data
+                totalHighTempCelsius += highTempCelsius;
+                totalLowTempCelsius += lowTempCelsius;
+                totalPressure += pressure;
+                totalHumidity += humidity;
+
+                totalPrecipIntensity += precipIntensity;
+                totalPrecipProbability += precipProbability;
+                totalVisibility += visibility;
+
+                precipitationTypes.add(type);
             } catch (MalformedURLException e) {
                 throw new APIException("Malformed URL! " + e.getMessage());
             } catch (IOException e) {
@@ -106,9 +149,31 @@ public class NaiveAPI implements IAPICache {
             }
         }
 
-        //TODO: Actually replace this test data with real averaging
-        WeatherData typicalWeather = new WeatherData(time, 5, -5, 1000,
-                1, 0.5, 0.5, ForecastType.DAILY, PrecipitationType.SLEET);
+        // Sum counts
+        HashMap<PrecipitationType, Integer> counts = new HashMap<>();
+
+        for(PrecipitationType type : precipitationTypes) {
+            counts.put(type, counts.getOrDefault(type, 0) + 1);
+        }
+
+        // Work out the Precip Type with the highest count ie. mode
+        int bestCount = Integer.MIN_VALUE;
+        PrecipitationType modePrecipType = null;
+
+        for(Map.Entry<PrecipitationType, Integer> entry : counts.entrySet()) {
+            int count = entry.getValue();
+            if(count > bestCount) {
+                bestCount = count;
+                modePrecipType = entry.getKey();
+            }
+        }
+
+        // Create a datapoint from all the averages
+        WeatherData typicalWeather = new WeatherData(time, totalHighTempCelsius/YEARS_FOR_TYPICAL,
+                totalLowTempCelsius/YEARS_FOR_TYPICAL, totalPressure/YEARS_FOR_TYPICAL,
+                totalHumidity/YEARS_FOR_TYPICAL, totalPrecipIntensity/YEARS_FOR_TYPICAL,
+                totalPrecipProbability/YEARS_FOR_TYPICAL, totalVisibility/YEARS_FOR_TYPICAL,
+                forecastType, modePrecipType);
 
         point.addDataPoint(typicalWeather);
 
@@ -190,12 +255,9 @@ public class NaiveAPI implements IAPICache {
         try {
             return bestPoint.getDataAboutTime(time);
         } catch(ForecastException e) {
+            // It doesn't have a point at the right time, so fetch it, add it to the file and
             return fetchTypicalWeatherForPoint(bestPoint, time);
         }
-    }
-
-    private NaiveAPI() {
-        forecastCache = new ArrayList<>();
     }
 
     public static NaiveAPI getInstance() {

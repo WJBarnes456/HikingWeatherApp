@@ -16,12 +16,14 @@ public class WeatherData {
     private double precipitationIntensity;
     private double precipitationProbability;
 
+    private double visibility;
+
     private ForecastType forecastType;
     private PrecipitationType precipitationType;
 
     public WeatherData(long timeForData, double highTempCelsius, double lowTempCelsius, double pressure, double humidity,
                        double precipitationIntensity, double precipitationProbability,
-                       ForecastType forecastType, PrecipitationType precipitationType) {
+                       double visibility, ForecastType forecastType, PrecipitationType precipitationType) {
         this.highTempCelsius = highTempCelsius;
         this.lowTempCelsius = lowTempCelsius;
         this.pressure = pressure;
@@ -29,6 +31,7 @@ public class WeatherData {
 
         this.precipitationIntensity = precipitationIntensity;
         this.precipitationProbability = precipitationProbability;
+        this.visibility = visibility;
         this.forecastType = forecastType;
         this.precipitationType = precipitationType;
         this.timeForData = timeForData;
@@ -110,5 +113,9 @@ public class WeatherData {
 
     public PrecipitationType getPrecipitationType() {
         return precipitationType;
+    }
+
+    public double getVisibility() {
+        return visibility;
     }
 }

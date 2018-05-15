@@ -1,5 +1,6 @@
 package uk.ac.cam.interaction_design.group02.hiking_app.backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ public class TypicalWeatherPoint {
     private double longitude;
     private double latitude;
 
-    private List<WeatherData> typicalDataPoints;
+    private List<WeatherData> typicalDataPoints = new ArrayList<>();
 
     public double getLongitude() {
         return longitude;

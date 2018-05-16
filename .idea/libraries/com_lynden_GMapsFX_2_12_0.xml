@@ -9,7 +9,10 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.ideaLibSources/GMapsFX-2.12.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/GMapsFX-2.12.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.23-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/logback-classic-1.2.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/logback-core-1.2.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

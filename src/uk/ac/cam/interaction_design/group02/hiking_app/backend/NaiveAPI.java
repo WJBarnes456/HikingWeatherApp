@@ -6,9 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.spi.CalendarNameProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +95,7 @@ public class NaiveAPI implements IAPICache {
             // Fetch JSON file from DarkSky using code from https://stackoverflow.com/a/1485730
             try {
                 StringBuilder result = new StringBuilder();
-                URL totalLookupURL = new URL(String.format(TYPICAL_DATA_LOOKUP_URL, APIKey.getKey(), latitude, longitude, lookupTime));
+                URL totalLookupURL = new URL(String.format(TYPICAL_DATA_LOOKUP_URL, APIKey.getDarkSkyKey(), latitude, longitude, lookupTime));
                 HttpURLConnection connectionToAPI = (HttpURLConnection) totalLookupURL.openConnection();
                 connectionToAPI.setRequestMethod("GET");
 

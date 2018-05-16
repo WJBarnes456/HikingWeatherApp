@@ -6,7 +6,5 @@
 	<levels>
 		<level name="com.lynden:GMapsFX:2.12.0" value="project"/>
 		<level name="org.json:json:20180130" value="project"/>
-		<level name="com.lynden:GMapsFX:2.0.2-27-SNAPSHOT" value="project"/>
-		<level name="com.google.api.client:google-api-data-maps-v2:1.0.10-alpha" value="project"/>
 	</levels>
 </component>

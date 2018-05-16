@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
 
 public class DirectionsFXMLController implements Initializable, MapComponentInitializedListener, DirectionsServiceCallback {
 
@@ -23,7 +24,7 @@ public class DirectionsFXMLController implements Initializable, MapComponentInit
     protected DirectionsRenderer directionsRenderer = null;
 
     @FXML
-    protected GoogleMapView mapView;
+    protected GoogleMapView mapView = new GoogleMapView ("en", APIKey.getGoogleMapsKey());
 
     @FXML
     protected TextField fromTextField;
@@ -49,6 +50,7 @@ public class DirectionsFXMLController implements Initializable, MapComponentInit
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         mapView.addMapInializedListener(this);
         to.bindBidirectional(toTextField.textProperty());
         from.bindBidirectional(fromTextField.textProperty());

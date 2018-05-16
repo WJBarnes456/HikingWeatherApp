@@ -4,7 +4,7 @@
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
 	<levels>
-		<level name="org.json:json:20180130" value="project"/>
 		<level name="com.lynden:GMapsFX:2.12.0" value="project"/>
+		<level name="org.json:json:20180130" value="project"/>
 	</levels>
 </component>

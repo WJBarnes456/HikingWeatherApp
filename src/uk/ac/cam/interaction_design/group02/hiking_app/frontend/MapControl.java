@@ -12,8 +12,8 @@ import java.io.IOException;
 public class MapControl extends GridPane {
     public MapControl() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MapControl.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
+      //  fxmlLoader.setRoot(this);
+       // fxmlLoader.setController(this);
         //Controller HAS to be set here, otherwise you get a self-cyclic instantiation => VERY BAD
 
         fxmlLoader.load();

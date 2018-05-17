@@ -10,34 +10,45 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="300.0" stylesheets="@mainDesign.css" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<fx:root prefHeight="450.0" prefWidth="300.0" stylesheets="@mainDesign.css" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints percentWidth="100.0" />
     </columnConstraints>
 
     <rowConstraints>
-        <RowConstraints maxHeight="300.0" minHeight="25.0" vgrow="SOMETIMES" /> <!-- Current weather -->
+        <RowConstraints maxHeight="300.0" minHeight="140.0" vgrow="SOMETIMES" /> <!-- Current weather -->
         <RowConstraints vgrow="ALWAYS" />
     </rowConstraints>
-   <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="300.0">
+   <AnchorPane prefHeight="174.0" prefWidth="300.0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
       <children>
-         <Text layoutX="15.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Temperature:" wrappingWidth="70.412109375" />
-         <Text layoutX="17.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Probability of rain:" />
-         <Text layoutX="17.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ground conditions:" />
-         <Text fx:id="todayTemp" layoutX="88.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
-         <Text fx:id="todayRainProb" layoutX="119.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
-         <Text fx:id="todayGroundCond" layoutX="122.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
-         <Text fx:id="todayDate" layoutX="229.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#todayDate" textAlignment="RIGHT" wrappingWidth="63.3607177734375" />
-         <Text fx:id="location" layoutX="146.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#location">
-            <font>
-               <Font size="15.0" />
-            </font>
-         </Text>
-         <ImageView fx:id="todayWeatherIcon" fitHeight="98.0" fitWidth="98.0" layoutX="15.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
-         <ImageView fx:id="pin" fitHeight="25.0" fitWidth="25.0" layoutX="117.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+          <HBox AnchorPane.leftAnchor="15.0" AnchorPane.bottomAnchor="50" >
+              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temperature: "/>
+              <Text fx:id="todayTemp" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
+          </HBox>
+          <HBox AnchorPane.leftAnchor="15.0" AnchorPane.bottomAnchor="30">
+              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Probability of rain: " />
+              <Text fx:id="todayRainProb" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
+          </HBox>
+          <HBox AnchorPane.leftAnchor="15.0" AnchorPane.bottomAnchor="10">
+              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ground conditions: " />
+              <Text fx:id="todayGroundCond" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
+          </HBox>
+
+          <Text fx:id="todayDate" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" strokeType="OUTSIDE" strokeWidth="0.0" text="#todayDate" textAlignment="RIGHT"/>
+          <HBox AnchorPane.rightAnchor="80" AnchorPane.topAnchor="70">
+              <ImageView fx:id="pin" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+              <Text fx:id="location" strokeType="OUTSIDE" strokeWidth="0.0" text="#location">
+                  <font>
+                      <Font size="15.0" />
+                  </font>
+              </Text>
+          </HBox>
+         <ImageView fx:id="todayWeatherIcon" fitHeight="98.0" fitWidth="98.0" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" pickOnBounds="true" preserveRatio="true" />
       </children>
-   </Pane>
-    <ScrollPane fx:id="hikeScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.33" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+   </AnchorPane>
+    <ScrollPane fx:id="hikeScrollPane" prefHeight="275.33" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
         <VBox fx:id="hikeContainer" />
     </ScrollPane>
 </fx:root>

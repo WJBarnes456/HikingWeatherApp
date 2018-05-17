@@ -100,6 +100,8 @@ public class MainWindow extends Application {
 
         primaryStage.setTitle("Hiking Weather Application");
         primaryStage.setScene(scene);
+        primaryStage.setMinHeight(300);
+        primaryStage.setMinWidth(200);
 
         //Make sure the settings get dumped to disk when the application is closed
         primaryStage.setOnCloseRequest((event) -> {

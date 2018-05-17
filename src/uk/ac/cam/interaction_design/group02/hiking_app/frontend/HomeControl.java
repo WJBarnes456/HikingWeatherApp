@@ -26,6 +26,7 @@ public class HomeControl extends GridPane {
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         //Controller HAS to be set here, otherwise you get a self-cyclic instantiation => VERY BAD
+        this.getStylesheets().add("mainDesign.css");
 
         fxmlLoader.load();
 

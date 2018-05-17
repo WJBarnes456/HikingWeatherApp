@@ -2,16 +2,15 @@
 
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 <fx:root prefHeight="450.0" prefWidth="300.0" stylesheets="@mainDesign.css" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints percentWidth="100.0" />
@@ -21,31 +20,31 @@
         <RowConstraints maxHeight="300.0" minHeight="140.0" vgrow="SOMETIMES" /> <!-- Current weather -->
         <RowConstraints vgrow="ALWAYS" />
     </rowConstraints>
-   <AnchorPane prefHeight="174.0" prefWidth="300.0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
+   <AnchorPane fx:id="weatherPane" prefHeight="174.0" prefWidth="300.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
       <children>
-          <HBox AnchorPane.leftAnchor="15.0" AnchorPane.bottomAnchor="50" >
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temperature: "/>
-              <Text fx:id="todayTemp" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
+          <HBox AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="15.0">
+              <Label styleClass="basicWeatherInfoToday" text="Temperature: " />
+              <Label fx:id="todayTemp" styleClass="basicWeatherInfoToday" text="#val" />
           </HBox>
-          <HBox AnchorPane.leftAnchor="15.0" AnchorPane.bottomAnchor="30">
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Probability of rain: " />
-              <Text fx:id="todayRainProb" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
+          <HBox AnchorPane.bottomAnchor="30" AnchorPane.leftAnchor="15.0">
+              <Label styleClass="basicWeatherInfoToday" text="Probability of rain: " />
+              <Label fx:id="todayRainProb" styleClass="basicWeatherInfoToday" text="#val" />
           </HBox>
-          <HBox AnchorPane.leftAnchor="15.0" AnchorPane.bottomAnchor="10">
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ground conditions: " />
-              <Text fx:id="todayGroundCond" strokeType="OUTSIDE" strokeWidth="0.0" text="#val" />
+          <HBox AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="15.0">
+              <Label styleClass="basicWeatherInfoToday" text="Ground conditions: " />
+              <Label fx:id="todayGroundCond" styleClass="basicWeatherInfoToday" text="#val" />
           </HBox>
 
-          <Text fx:id="todayDate" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" strokeType="OUTSIDE" strokeWidth="0.0" text="#todayDate" textAlignment="RIGHT"/>
+          <Label fx:id="todayDate" text="#todayDate" textAlignment="RIGHT" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
           <HBox AnchorPane.rightAnchor="80" AnchorPane.topAnchor="70">
               <ImageView fx:id="pin" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-              <Text fx:id="location" strokeType="OUTSIDE" strokeWidth="0.0" text="#location">
+              <Label fx:id="location" text="#location">
                   <font>
                       <Font size="15.0" />
                   </font>
-              </Text>
+              </Label>
           </HBox>
-         <ImageView fx:id="todayWeatherIcon" fitHeight="98.0" fitWidth="98.0" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="todayWeatherIcon" fitHeight="98.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
       </children>
    </AnchorPane>
     <ScrollPane fx:id="hikeScrollPane" prefHeight="275.33" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">

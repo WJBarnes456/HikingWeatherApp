@@ -12,6 +12,7 @@
           alignment="CENTER"
           minWidth="300"
           minHeight="500"
+          stylesheets="@mainDesign.css"
 >
     <columnConstraints>
         <ColumnConstraints percentWidth="100" />

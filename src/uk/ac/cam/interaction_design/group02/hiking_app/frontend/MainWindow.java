@@ -50,12 +50,13 @@ public class MainWindow extends Application {
 
     /* TODO: Decide on styling */
     private void markSet(Button b) {
-        b.setStyle("-fx-background-color: lightgray;" +
-                "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );");
+        b.setStyle("-fx-background-color: #246249;" +
+                "-fx-text-fill: #78a895");
     }
 
     private void markUnset(Button b) {
-        b.setStyle("-fx-background-color: white;");
+        b.setStyle("-fx-background-color: #286d51;" +
+                "-fx-text-fill: #c5d9d1");
     }
 
     private void markAllUnset() {
@@ -97,6 +98,7 @@ public class MainWindow extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
 
         Scene scene = new Scene(root, 300, 500);
+        scene.getStylesheets().add("mainDesign.css");
 
         primaryStage.setTitle("Hiking Weather Application");
         primaryStage.setScene(scene);

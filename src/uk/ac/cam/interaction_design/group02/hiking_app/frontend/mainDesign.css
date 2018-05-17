@@ -1,3 +1,13 @@
-javafx.scene {
-    background-color: #518f77;
+.button {
+    -fx-background-radius: none;
+    -fx-border-color: none;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-size: 12pt;
+    -fx-text-fill: white;
 }
+
+.label {
+    -fx-text-fill: red;
+}
+
+

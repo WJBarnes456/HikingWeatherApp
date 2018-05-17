@@ -7,7 +7,10 @@ import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import netscape.javascript.JSObject;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.AppSettings;
@@ -29,6 +32,46 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
     private boolean initialised = false;
 
+    // All of the buttons we need for changing dates and that
+    // TODO: Implement date changing
+
+    @FXML
+    private Button todayButton;
+
+    @FXML
+    private Button tomorrowButton;
+
+    @FXML
+    private Button twoDaysButton;
+
+    @FXML
+    private Button threeDaysButton;
+
+    @FXML
+    private Button fourDaysButton;
+
+    @FXML
+    private Button laterButton;
+
+
+    private void markSet(Button b) {
+        b.setStyle("-fx-background-color: #246249;" +
+                "-fx-text-fill: #78a895");
+    }
+
+    private void markUnset(Button b) {
+        b.setStyle("-fx-background-color: #286d51;" +
+                "-fx-text-fill: #c5d9d1");
+    }
+
+    private void markAllUnset() {
+        markUnset(todayButton);
+        markUnset(tomorrowButton);
+        markUnset(twoDaysButton);
+        markUnset(threeDaysButton);
+        markUnset(fourDaysButton);
+    }
+
     @FXML
     public void initialize() {
         mapView = new GoogleMapView(null, APIKey.getGoogleMapsKey());
@@ -47,13 +90,14 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
     @Override
     public void mapInitialized() {
         AppSettings settings = AppSettings.getInstance();
+
         this.setCenter(mapView);
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
         mapOptions.center(new LatLong(settings.getUserLatitude(), settings.getUserLongitude()))
-                .mapType(MapTypeIdEnum.ROADMAP)
+                .mapType(MapTypeIdEnum.TERRAIN)
                 .overviewMapControl(false)
                 .panControl(false)
                 .rotateControl(false)
@@ -77,7 +121,9 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         LatLong latLong = event.getLatLong();
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        infoWindowOptions.content("<h2>Location: "+ latLong.toString()+"</h2>");
+        infoWindowOptions.content("<h2>Location clicked</h2> " +
+                        "Lat: " + latLong.getLatitude() + "<br>" +
+                "Long: " + latLong.getLongitude());
         // TODO: Implement hike addition, getting weather for this clicked point
 
         MarkerOptions clickMarkerOptions = new MarkerOptions();

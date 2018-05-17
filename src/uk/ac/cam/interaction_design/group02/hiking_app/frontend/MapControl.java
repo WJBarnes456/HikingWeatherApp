@@ -2,27 +2,32 @@ package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import netscape.javascript.JSObject;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.AppSettings;
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.Hike;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MapControl extends AnchorPane implements MapComponentInitializedListener {
-    @FXML
-    private BorderPane mapViewHolder;
-
+public class MapControl extends BorderPane implements MapComponentInitializedListener {
     private GoogleMapView mapView;
 
     private GoogleMap map;
+
+    private List<Marker> hikeMarkers = new ArrayList<>();
+
+    private InfoWindow clickInfoWindow;
+    private Marker clickMarker;
+
+    private boolean initialised = false;
 
     @FXML
     public void initialize() {
@@ -41,18 +46,13 @@ public class MapControl extends AnchorPane implements MapComponentInitializedLis
 
     @Override
     public void mapInitialized() {
-        mapViewHolder.setCenter(mapView);
-        LatLong joeSmithLocation = new LatLong(47.6197, -122.3231);
-        LatLong joshAndersonLocation = new LatLong(47.6297, -122.3431);
-        LatLong bobUnderwoodLocation = new LatLong(47.6397, -122.3031);
-        LatLong tomChoiceLocation = new LatLong(47.6497, -122.3325);
-        LatLong fredWilkieLocation = new LatLong(47.6597, -122.3357);
-
+        AppSettings settings = AppSettings.getInstance();
+        this.setCenter(mapView);
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(47.6097, -122.3331))
+        mapOptions.center(new LatLong(settings.getUserLatitude(), settings.getUserLongitude()))
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(false)
                 .panControl(false)
@@ -60,44 +60,96 @@ public class MapControl extends AnchorPane implements MapComponentInitializedLis
                 .scaleControl(false)
                 .streetViewControl(false)
                 .zoomControl(false)
-                .zoom(12);
+                .zoom(8);
 
         map = mapView.createMap(mapOptions);
 
-        //Add markers to the map
-        MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(joeSmithLocation);
+        map.addMouseEventHandler(UIEventType.click, this::handleMapClick);
 
-        MarkerOptions markerOptions2 = new MarkerOptions();
-        markerOptions2.position(joshAndersonLocation);
+        initialised = true;
+        refresh();
+    }
 
-        MarkerOptions markerOptions3 = new MarkerOptions();
-        markerOptions3.position(bobUnderwoodLocation);
+    private void handleMapClick(GMapMouseEvent event) {
+        cleanMarker();
 
-        MarkerOptions markerOptions4 = new MarkerOptions();
-        markerOptions4.position(tomChoiceLocation);
+        // Now handle the actual click event
+        LatLong latLong = event.getLatLong();
 
-        MarkerOptions markerOptions5 = new MarkerOptions();
-        markerOptions5.position(fredWilkieLocation);
+        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+        infoWindowOptions.content("<h2>Location: "+ latLong.toString()+"</h2>");
+        // TODO: Implement hike addition, getting weather for this clicked point
 
-        Marker joeSmithMarker = new Marker(markerOptions1);
-        Marker joshAndersonMarker = new Marker(markerOptions2);
-        Marker bobUnderwoodMarker = new Marker(markerOptions3);
-        Marker tomChoiceMarker= new Marker(markerOptions4);
-        Marker fredWilkieMarker = new Marker(markerOptions5);
+        MarkerOptions clickMarkerOptions = new MarkerOptions();
+        clickMarkerOptions.position(latLong);
 
-        map.addMarker( joeSmithMarker );
-        map.addMarker( joshAndersonMarker );
-        map.addMarker( bobUnderwoodMarker );
-        map.addMarker( tomChoiceMarker );
-        map.addMarker( fredWilkieMarker );
+        clickMarker = new Marker(clickMarkerOptions);
+        map.addMarker(clickMarker);
 
-        //   InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        //   infoWindowOptions.content("<h2>Fred Wilkie</h2>"
-        //          + "Current Location: Safeway<br>"
-        //          + "ETA: 45 minutes" );
+        clickInfoWindow = new InfoWindow(infoWindowOptions);
 
-        //    InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
-        //   fredWilkeInfoWindow.open(map, fredWilkieMarker);
+        clickInfoWindow.open(map, clickMarker);
+    }
+
+
+    /**
+     * Method used to show information about a hike when clicked on
+     * @param hikeMarker The marker of the hike to show information on
+     * @param hike The raw hike object to show information on
+     */
+    private void handleMarkerClick(Marker hikeMarker, Hike hike) {
+        cleanMarker();
+        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+        infoWindowOptions.content("<h2>"+hike.getName()+"</h2>");
+        // TODO: Show weather about a location when the hike is clicked
+
+        clickInfoWindow = new InfoWindow(infoWindowOptions);
+        clickInfoWindow.open(map, hikeMarker);
+    }
+
+    /**
+     * Helper method used to remove the clickmarker and clickinfowindow when handling events
+     */
+    private void cleanMarker() {
+        // Close the window if one already exists
+        if(clickInfoWindow != null) {
+            clickInfoWindow.close();
+            clickInfoWindow = null;
+        }
+
+        // Get rid of the temporary click marker as well if we don't need it
+        if(clickMarker != null) {
+            map.removeMarker(clickMarker);
+            clickMarker = null;
+        }
+    }
+
+    public void refresh() {
+        if(initialised) {
+            AppSettings settings = AppSettings.getInstance();
+
+            map.removeMarkers(hikeMarkers);
+
+            //Add hike markers to the map
+            hikeMarkers.clear();
+            for (Hike h : settings.getHikes()) {
+                LatLong hikeLocation = new LatLong(h.getLatitude(), h.getLongitude());
+
+                //Cache the options - we need them for detecting whether someone has clicked on a hike later.
+                MarkerOptions hikeOptions = new MarkerOptions();
+                hikeOptions.position(hikeLocation);
+                hikeOptions.title(h.getName());
+
+                Marker hikeMarker = new Marker(hikeOptions);
+
+                map.addUIEventHandler(hikeMarker, UIEventType.click, (JSObject j) -> {
+                    handleMarkerClick(hikeMarker, h);
+                });
+
+                hikeMarkers.add(hikeMarker);
+
+                map.addMarker(hikeMarker);
+            }
+        }
     }
 }

@@ -67,6 +67,7 @@ public class MainWindow extends Application {
 
     @FXML
     private void handleMapButtonAction(ActionEvent e) {
+        mapControl.refresh();
         mainContainer.setCenter(mapControl);
         markAllUnset();
         markSet(mapButton);

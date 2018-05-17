@@ -3,6 +3,7 @@ package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -18,6 +19,8 @@ public class HomeControl extends GridPane {
     @FXML
     private VBox hikeContainer;
 
+    private List<HikeControl> hikes;
+
     public HomeControl() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomeControl.fxml"));
         fxmlLoader.setRoot(this);
@@ -25,10 +28,12 @@ public class HomeControl extends GridPane {
         //Controller HAS to be set here, otherwise you get a self-cyclic instantiation => VERY BAD
 
         fxmlLoader.load();
-    }
 
+        //add here
+    }
+/*
     public void refresh() {
-        AppSettings settings = AppSettings.getInstance();
+       AppSettings settings = AppSettings.getInstance();
         NaiveAPI api = NaiveAPI.getInstance();
 
         List<Node> hikeControls = hikeContainer.getChildren();
@@ -68,4 +73,5 @@ public class HomeControl extends GridPane {
             hikeControls.add(new Text(h.getName() + ": " + weatherString));
         }
     }
+*/
 }

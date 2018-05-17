@@ -8,15 +8,9 @@ import java.io.IOException;
 import java.util.Date;
 
 public class HikeControl extends GridPane {
-    private Date hikeDate;
+    private Hike hike;
 
-    private String hikeName;
-
-    private double rainProb;
-
-    
-
-    public HikeControl(Hike hike) throws IOException {
+    public HikeControl() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomeControl.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

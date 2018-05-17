@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
 
 public class DirectionsFXMLController implements Initializable, MapComponentInitializedListener {
@@ -21,7 +22,9 @@ public class DirectionsFXMLController implements Initializable, MapComponentInit
     private Button button;
 
     @FXML
-    private GoogleMapView mapView ;
+    private BorderPane mapViewHolder;
+
+    private GoogleMapView mapView;
 
     private GoogleMap map;
 
@@ -33,6 +36,7 @@ public class DirectionsFXMLController implements Initializable, MapComponentInit
 
     @Override
     public void mapInitialized() {
+        mapViewHolder.setCenter(mapView);
         LatLong joeSmithLocation = new LatLong(47.6197, -122.3231);
         LatLong joshAndersonLocation = new LatLong(47.6297, -122.3431);
         LatLong bobUnderwoodLocation = new LatLong(47.6397, -122.3031);

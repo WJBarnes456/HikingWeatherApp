@@ -7,7 +7,7 @@
 
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
-<fx:root type="javafx.scene.layout.AnchorPane" prefHeight="443.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.cam.interaction_design.group02.hiking_app.frontend.DirectionsFXMLController">
+<fx:root type="javafx.scene.layout.AnchorPane" prefHeight="443.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <BorderPane fx:id="mapViewHolder" prefHeight="750.0" prefWidth="761.0" AnchorPane.bottomAnchor="-185.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-441.0" AnchorPane.topAnchor="0.0"/>
     </children>

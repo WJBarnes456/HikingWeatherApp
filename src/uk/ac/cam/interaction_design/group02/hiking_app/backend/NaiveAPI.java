@@ -46,9 +46,130 @@ public class NaiveAPI implements IAPICache {
      * TODO: Implement API usage
      * @return Weather for a point
      */
-    private ForecastWeatherPoint fetchWeatherUsingAPI(double latitude, double longitude) throws APIException {
-        List<WeatherData> data = List.of(new WeatherData(System.currentTimeMillis()/1000, 10, 0, 1000, 1,
-                0.1, 0.5, 7, ForecastType.MINUTELY, PrecipitationType.RAIN));
+private AsyncHttpClient client = new AsyncHttpClient();
+ 
+ public ForecastWeatherPoint fetchWeatherUsingAPI(double latitude, double longitude) throws APIException {
+        List<WeatherData> data = new ArrayList<WeatherData>();
+
+        client.get( "https://api.forecast.io/forecast/" + API_KEY + "/" + latitude + "," + longitude + "?units=si", null, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String response) {
+                    JSONObject root = new JSONObject(response);
+                    JSONObject daily = root.getJSONObject("daily");
+                    JSONObject hourly = root.getJSONObject("hourly");
+                    JSONObject minutely = root.getJSONObject("minutely");
+                    JSONObject currently = root.getJSONObject("currently");
+
+                    JSONArray nHour = minutely.getJSONArray("data");
+                    JSONArray nDay = hourly.getJSONArray("data");
+                    JSONArray nDay = hourly.getJSONArray("data");
+
+                    /*(long timeForData, double highTempCelsius, double lowTempCelsius, double pressure, double humidity,
+                       double precipitationIntensity, double precipitationProbability,
+                       double visibility, ForecastType forecastType, PrecipitationType precipitationType) */
+
+
+
+                    //loop through next hour for each minute
+                    for (int i = 0; i < nHour.length(); i++) {
+                        JSONObject Min = nHour.getJSONObject(i);
+                        PrecipitationType type = new PrecipitationType();
+
+                        switch (Min.getString("precipType")){
+                            case "snow":type = PrecipitationType.SNOW;
+                                        break;
+                            case "rain":type = PrecipitationType.RAIN;
+                                        break;
+                            case "sleet":type = PrecipitationType.SLEET;
+                                        break;
+                            default:type = PrecipitationType.NONE;
+                                        break;
+                        }
+                            
+                        
+                        WeatherData toSave = new WeatherData(
+                            Min.getLong("time"),
+                            Min.getDouble("apparentTemperature"),
+                            Min.getDouble("apparentTemperature"),
+                            Min.getDouble("pressure"),
+                            Min.getDouble("humidity"),
+                            Min.getDouble("precipIntensity"),
+                            Min.getDouble("precipProbability"),
+                            Min.getDouble("visibility"),
+                            ForecastType.MINUTELY,
+                            type
+                        );
+                        data.add(toSave);
+                    }
+
+                    //loop through next day for each hour
+                    for (int i = 0; i < nDay.length(); i++) {
+                        JSONObject Hour = nDay.getJSONObject(i);
+                        PrecipitationType type = new PrecipitationType();
+
+                        switch (Hour.getString("precipType")){
+                            case "snow":type = PrecipitationType.SNOW;
+                                        break;
+                            case "rain":type = PrecipitationType.RAIN;
+                                        break;
+                            case "sleet":type = PrecipitationType.SLEET;
+                                        break;
+                            default:type = PrecipitationType.NONE;
+                                        break;
+                        }
+                            
+                        
+                        WeatherData toSave = new WeatherData(
+                            Hour.getLong("time"),
+                            Hour.getDouble("apparentTemperature"),
+                            Hour.getDouble("apparentTemperature"),
+                            Hour.getDouble("pressure"),
+                            Hour.getDouble("humidity"),
+                            Hour.getDouble("precipIntensity"),
+                            Hour.getDouble("precipProbability"),
+                            Hour.getDouble("visibility"),
+                            ForecastType.HOURLY,
+                            type
+                        );
+                        data.add(toSave);
+                    }
+
+                    //loop through next week for each day
+                     for (int i = 0; i < nWeek.length(); i++) {
+                        JSONObject Day = nWeek.getJSONObject(i);
+                        PrecipitationType type = new PrecipitationType();
+
+                        switch (Day.getString("precipType")){
+                            case "snow":type = PrecipitationType.SNOW;
+                                        break;
+                            case "rain":type = PrecipitationType.RAIN;
+                                        break;
+                            case "sleet":type = PrecipitationType.SLEET;
+                                        break;
+                            default:type = PrecipitationType.NONE;
+                                        break;
+                        }
+                            
+                        
+                        WeatherData toSave = new WeatherData(
+                            Day.getLong("time"),
+                            Day.getDouble("apparentTemperatureHigh"),
+                            Day.getDouble("apparentTemperatureLow"),
+                            Day.getDouble("pressure"),
+                            Day.getDouble("humidity"),
+                            Day.getDouble("precipIntensity"),
+                            Day.getDouble("precipProbability"),
+                            Day.getDouble("visibility"),
+                            ForecastType.DAILY,
+                            type
+                        );
+                        data.add(toSave);
+                    }
+
+                }
+            }
+        });
+        
         return new ForecastWeatherPoint(latitude, longitude, System.currentTimeMillis()/1000, data);
     }
 

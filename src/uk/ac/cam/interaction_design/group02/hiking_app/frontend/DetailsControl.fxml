@@ -29,15 +29,15 @@
             <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Humidity:" />
             <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Visibility:" GridPane.rowIndex="1" />
             <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Air Pressure:" GridPane.rowIndex="2" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Air Pressure:" GridPane.rowIndex="3" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Air Pressure:" GridPane.rowIndex="4" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Air Pressure:" GridPane.rowIndex="5" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="High Temperature:" GridPane.rowIndex="3" />
+            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Probability of Precipitation:" GridPane.rowIndex="4" />
+            <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Intensity of Precipitation:" GridPane.rowIndex="5" />
+            <Label fx:id="humidity" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" />
+            <Label fx:id="visibility" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="air-pressure" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="high" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="probability" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="intersity" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Pane layoutX="152.0" layoutY="8.0" prefHeight="148.0" prefWidth="140.0" style="-fx-border-color: black;">

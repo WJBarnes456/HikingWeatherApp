@@ -45,6 +45,19 @@ public class NaiveAPI implements IAPICache {
     private static NaiveAPI instance;
 
     /**
+     * Get precipitation type from object
+     * @param object Forecast object to extract preciptype from
+     * @return Correct precipitation type
+     */
+    private PrecipitationType getPrecipType(JSONObject object) {
+        try {
+            return PrecipitationType.typeFromString(object.getString("precipType"));
+        } catch (JSONException e) {
+            return PrecipitationType.NONE;
+        }
+    }
+
+    /**
      * Use the API to fetch weather for a given point
      *
      * @param latitude  Latitude of the point to fetch weather for
@@ -75,8 +88,10 @@ public class NaiveAPI implements IAPICache {
             //loop through next hour for each minute
             for (int i = 0; i < nHour.length(); i++) {
                 JSONObject min = nHour.getJSONObject(i);
-                PrecipitationType type = PrecipitationType.typeFromString(min.getString("precipType"));
+                PrecipitationType type = getPrecipType(min);
 
+                // TODO: Fix apparent temperature not always being present
+                // TODO: Change to real temperature
                 WeatherData toSave = new WeatherData(
                         min.getLong("time"),
                         min.getDouble("apparentTemperature"),
@@ -95,8 +110,10 @@ public class NaiveAPI implements IAPICache {
             //loop through next day for each hour
             for (int i = 0; i < nDay.length(); i++) {
                 JSONObject Hour = nDay.getJSONObject(i);
-                PrecipitationType type = PrecipitationType.typeFromString(Hour.getString("precipType"));
+                PrecipitationType type = getPrecipType(Hour);
 
+                // TODO: Fix apparent temperature not always being present
+                // TODO: Change to real temperature
                 WeatherData toSave = new WeatherData(
                         Hour.getLong("time"),
                         Hour.getDouble("apparentTemperature"),
@@ -115,8 +132,10 @@ public class NaiveAPI implements IAPICache {
             //loop through next week for each day
             for (int i = 0; i < nWeek.length(); i++) {
                 JSONObject Day = nWeek.getJSONObject(i);
-                PrecipitationType type = PrecipitationType.typeFromString(Day.getString("precipType"));
+                PrecipitationType type = getPrecipType(Day);
 
+                // TODO: Fix apparent temperature not always being present
+                // TODO: Change to real temperature
                 WeatherData toSave = new WeatherData(
                         Day.getLong("time"),
                         Day.getDouble("apparentTemperatureHigh"),
@@ -226,12 +245,7 @@ public class NaiveAPI implements IAPICache {
                 double precipProbability = dailyResult.getDouble("precipProbability");
                 double visibility = dailyResult.getDouble("visibility");
 
-                PrecipitationType type;
-                try {
-                    type = PrecipitationType.typeFromString(dailyResult.getString("precipType"));
-                } catch (JSONException e) {
-                    type = PrecipitationType.NONE;
-                }
+                PrecipitationType type = getPrecipType(dailyResult);
 
                 //Sum up all the data
                 totalHighTempCelsius += highTempCelsius;

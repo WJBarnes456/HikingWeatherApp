@@ -8,9 +8,8 @@ import com.lynden.gmapsfx.javascript.object.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import netscape.javascript.JSObject;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.AppSettings;
@@ -146,14 +145,25 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
      * @param hikeMarker The marker of the hike to show information on
      * @param hike The raw hike object to show information on
      */
-    private void handleMarkerClick(Marker hikeMarker, Hike hike) {
+    private void handleHikeMarkerClick(Marker hikeMarker, Hike hike) {
         cleanMarker();
-        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        infoWindowOptions.content("<h2>"+hike.getName()+"</h2>");
-        // TODO: Show weather about a location when the hike is clicked
 
-        clickInfoWindow = new InfoWindow(infoWindowOptions);
-        clickInfoWindow.open(map, hikeMarker);
+        Dialog detailsDialog = new Dialog();
+        try {
+            detailsDialog.getDialogPane().setContent(new DetailsControl(hike));
+            detailsDialog.showAndWait();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            // TODO: Fix details not working
+            /*
+            // Fallback if DetailsControl throws an IOException and can't load
+            InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+            infoWindowOptions.content("<h2>"+hike.getName()+"</h2>");
+
+            clickInfoWindow = new InfoWindow(infoWindowOptions);
+            clickInfoWindow.open(map, hikeMarker);*/
+        }
     }
 
     /**
@@ -192,7 +202,7 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
                 Marker hikeMarker = new Marker(hikeOptions);
 
                 map.addUIEventHandler(hikeMarker, UIEventType.click, (JSObject j) -> {
-                    handleMarkerClick(hikeMarker, h);
+                    handleHikeMarkerClick(hikeMarker, h);
                 });
 
                 hikeMarkers.add(hikeMarker);

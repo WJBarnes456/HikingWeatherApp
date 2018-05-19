@@ -112,4 +112,15 @@ public class AppSettings {
     public void addHike(Hike hike) {
         hikes.add(hike);
     }
+
+    /**
+     * Debug method that just adds a junk hike in a day's time at the current location
+     */
+    public void addTestHike() {
+        Hike h = new Hike("Hike name",
+                getUserLatitude(), getUserLongitude(),
+                System.currentTimeMillis()/1000 + 60*60*24,
+                System.currentTimeMillis()/1000 + 60*60*48);
+        addHike(h);
+    }
 }

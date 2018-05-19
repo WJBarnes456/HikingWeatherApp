@@ -2,6 +2,7 @@ package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
 import java.io.IOException;
 
+import javafx.scene.layout.Pane;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 
 import java.net.URL;
@@ -14,7 +15,7 @@ import javafx.scene.control.Label;
 
 import javafx.fxml.FXMLLoader;
 
-public class DetailsControl {
+public class DetailsControl extends Pane {
 	
 	//Use the fxml fx:id tag as the name of the object
 	// You can find these in the fxml file, it is normally the first attribute.
@@ -42,7 +43,7 @@ public class DetailsControl {
 	
 	@FXML
     public void initialize() throws APIException, ForecastException {
-	    IAPICache api = new NaiveAPI();
+	    IAPICache api = NaiveAPI.getInstance();
 
 		double latitude = hike.getLatitude();
 		double longitude = hike.getLongitude();

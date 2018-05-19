@@ -367,4 +367,6 @@ public class NaiveAPI implements IAPICache {
         }
         return instance;
     }
+
+    private NaiveAPI() {}
 }

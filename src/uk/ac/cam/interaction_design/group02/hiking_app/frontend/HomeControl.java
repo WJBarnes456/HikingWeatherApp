@@ -1,27 +1,49 @@
 package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
-
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HomeControl extends GridPane {
     @FXML
-    private Text currentWeatherText;
+    private ImageView todayWeatherIcon;
+
+    @FXML
+    private Label todayTemp;
+
+    @FXML
+    private Label todayRainProb;
+
+    @FXML
+    private Label todayGroundCond;
+
+    @FXML
+    private Label todayDate;
 
     @FXML
     private VBox hikeContainer;
 
-    private List<HikeControl> hikes;
+    @FXML
+    private ImageView pin;
 
-    public HomeControl() throws IOException {
+    private List<HikeControl> hikes = new ArrayList<>();
+
+    public HomeControl() throws IOException, ForecastException, APIException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomeControl.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -29,50 +51,46 @@ public class HomeControl extends GridPane {
         this.getStylesheets().add("mainDesign.css");
 
         fxmlLoader.load();
-
-        //add here
     }
-/*
-    public void refresh() {
+    public void refresh() throws APIException, ForecastException, IOException {
        AppSettings settings = AppSettings.getInstance();
         NaiveAPI api = NaiveAPI.getInstance();
 
-        List<Node> hikeControls = hikeContainer.getChildren();
+        //Wipe out previous hikes (they might've changed)
+        hikes.clear();
 
-        hikeControls.clear(); //Wipe out previous hikes (they might've changed)
+        ForecastWeatherPoint point = api.getWeatherForPoint(settings.getUserLatitude(), settings.getUserLongitude());
+        WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis()/1000);
 
-        try {
-            ForecastWeatherPoint point = api.getWeatherForPoint(settings.getUserLatitude(), settings.getUserLongitude());
-            WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis()/1000);
-            double temp = currentWeather.getAvgTemperatureCelsius();
-            double humidity = currentWeather.getHumidity();
-            currentWeatherText.setText(String.format("Current weather: %s degrees Celsius, humidity %s", temp, humidity));
-        } catch (APIException e) {
-            currentWeatherText.setText("API Call failed.");
-        } catch (ForecastException e) {
-            currentWeatherText.setText("Current weather not included in forecast");
-        }
+        //Get current temperature and rainfall probability
+        double temp = currentWeather.getAvgTemperatureCelsius();
+        double rainProb = currentWeather.getPrecipitationProbability();
+
+        //Displaying current temperature
+        todayTemp.setText(Integer.toString((int) temp) + "°C");
+
+        //Displaying current rainfall probability
+        todayRainProb.setText(Integer.toString((int) (rainProb * 100)) + "%");
+
+        //Displaying current ground conditions based on the current day's rainfall probability
+        if(rainProb < 0.1)
+            todayGroundCond.setText("dry");
+        else if (rainProb < 0.25)
+            todayGroundCond.setText("optimal");
+        else
+            todayGroundCond.setText("muddy");
+
+        //Displaying today's date
+        todayDate.setText(java.time.LocalDate.now().toString());
+
+        /*Hike x = new Hike("Hike Trial", settings.getUserLatitude(), settings.getUserLongitude(), 1626748084, 1626748700);
+        HikeControl y = new HikeControl(x);
+        hikeContainer.getChildren().add(y);*/
 
         for(Hike h : settings.getHikes()) {
-            String weatherString;
-            try {
-                double hikeLat = h.getLatitude();
-                double hikeLong = h.getLongitude();
-                long hikeStart = h.getEndTime();
-
-                ForecastWeatherPoint point = api.getWeatherForPoint(hikeLat, hikeLong);
-                WeatherData forecast = point.getForecastAtTime(h.getStartTime());
-                double temp = forecast.getAvgTemperatureFahrenheit();
-                double humidity = forecast.getHumidity();
-
-                weatherString = String.format("%s degrees Fahrenheit, humidity %s", temp, humidity);
-            } catch (APIException e) {
-                weatherString = "API call failed";
-            } catch (ForecastException e) {
-                weatherString = "Too far out, try again later";
-            }
-            hikeControls.add(new Text(h.getName() + ": " + weatherString));
+            HikeControl hike = new HikeControl(h);
+            hikes.add(hike);
+            hikeContainer.getChildren().add(hike);
         }
     }
-*/
 }

@@ -1,10 +1,9 @@
 package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
 import java.io.IOException;
-import uk.ac.cam.interaction_design.group02.hiking_app.backend.Hike;
-import uk.ac.cam.interaction_design.group02.hiking_app.backend.ForecastWeatherPoint;
-import uk.ac.cam.interaction_design.group02.hiking_app.backend.NaiveAPI;
-import uk.ac.cam.interaction_design.group02.hiking_app.backend.WeatherData;
+
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,24 +24,36 @@ public class DetailsControl implements Initializable {
 	@FXML Label air_pressure;
 	@FXML Label high;
 	@FXML Label probability;
-	@FXML Label intensity
-	
-	@FXML
-    	public void initialize() {
+	@FXML Label intensity;
+
+	private Hike hike;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		
 		double latitude = hike.getLatitude();
 		double longitude = hike.getLongitude();
 		long startTime = hike.getStartTime();
-		
-		ForecastWeatherPoint weatherPoint = fetchWeatherUsingAPI(latitude,longitude);
-		WeatherData data = weatherPoint.getForecastAtTime(startTime);
-		
-		humidity.setText(data.getHumidity());
-		visibility.setText(data.getVisibility());
-		air_pressure.setText(data.getPressure());
-		high.setText(data.getHighTemperatureCelsius());
-		probability.setText(data.getPrecipitationProbability());
-		intensity.setText(data.getPrecipitationIntensity());
+
+		ForecastWeatherPoint weatherPoint = null;
+		try {
+			weatherPoint = NaiveAPI.fetchWeatherUsingAPI(latitude,longitude);
+		} catch (APIException e) {
+			e.printStackTrace();
+		}
+		WeatherData data = null;
+		try {
+			data = weatherPoint.getForecastAtTime(startTime);
+		} catch (ForecastException e) {
+			e.printStackTrace();
+		}
+
+		humidity.setText(Double.toString(data.getHumidity()));
+		visibility.setText(Double.toString(data.getVisibility()));
+		air_pressure.setText(Double.toString(data.getPressure()));
+		high.setText(Double.toString(data.getHighTemperatureCelsius()));
+		probability.setText(Double.toString(data.getPrecipitationProbability()));
+		intensity.setText(Double.toString(data.getPrecipitationIntensity()));
 
     	}
 	
@@ -55,8 +66,5 @@ public class DetailsControl implements Initializable {
 
         	fxmlLoader.load();
     	}
-	
-	
-	
-	
-}
+
+	}

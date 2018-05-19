@@ -1,13 +1,16 @@
 .button {
     -fx-background-radius: none;
     -fx-border-color: none;
-    -fx-font-family: "Arial Narrow";
+    -fx-font-family: "Century Gothic";
     -fx-font-size: 12pt;
     -fx-text-fill: white;
 }
 
 .label {
-    -fx-text-fill: red;
+    -fx-font-family: "Century Gothic";
 }
 
+{
+    -fx-background-color: #78a895;
+}
 

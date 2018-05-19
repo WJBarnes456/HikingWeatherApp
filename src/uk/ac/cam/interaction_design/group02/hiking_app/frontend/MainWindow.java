@@ -42,7 +42,7 @@ public class MainWindow extends Application {
     private HomeControl homeControl;
     private SettingsControl settingsControl;
 
-    public MainWindow() throws IOException {
+    public MainWindow() throws IOException, APIException, ForecastException {
         homeControl = new HomeControl();
         settingsControl = new SettingsControl();
         mapControl = new MapControl();
@@ -76,12 +76,12 @@ public class MainWindow extends Application {
     }
 
     @FXML
-    private void handleHomeButtonAction(ActionEvent e) {
+    private void handleHomeButtonAction(ActionEvent e) throws APIException, ForecastException, IOException {
         focusHomeButton();
     }
 
-    private void focusHomeButton() {
-        //homeControl.refresh();
+    private void focusHomeButton() throws APIException, ForecastException, IOException {
+        homeControl.refresh();
         mainContainer.setCenter(homeControl);
         markAllUnset();
         markSet(homeButton);
@@ -126,7 +126,7 @@ public class MainWindow extends Application {
      * Method run on FXML load to initialise (ie. default to home page)
      */
     @FXML
-    public void initialize() {
+    public void initialize() throws APIException, ForecastException, IOException {
         focusHomeButton();
     }
 }

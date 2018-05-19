@@ -12,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import netscape.javascript.JSObject;
-import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey_example;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.AppSettings;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.Hike;
 
@@ -74,7 +74,7 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
     @FXML
     public void initialize() {
-        mapView = new GoogleMapView(null, APIKey.getGoogleMapsKey());
+        mapView = new GoogleMapView(null, APIKey_example.getGoogleMapsKey());
         mapView.addMapInializedListener(this);
     }
 

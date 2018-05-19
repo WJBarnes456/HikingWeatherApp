@@ -70,12 +70,15 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         markUnset(twoDaysButton);
         markUnset(threeDaysButton);
         markUnset(fourDaysButton);
+        markUnset(laterButton);
     }
 
     @FXML
     public void initialize() {
         mapView = new GoogleMapView(null, APIKey.getGoogleMapsKey());
         mapView.addMapInializedListener(this);
+
+        markAllUnset();
     }
 
 

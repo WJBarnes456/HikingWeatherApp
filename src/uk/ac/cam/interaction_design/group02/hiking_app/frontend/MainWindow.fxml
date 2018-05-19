@@ -19,7 +19,7 @@
     </columnConstraints>
 
     <rowConstraints>
-        <RowConstraints minHeight="25" maxHeight="50" vgrow="ALWAYS"/> <!-- Menu button row -->
+        <RowConstraints minHeight="50" maxHeight="50" vgrow="ALWAYS"/> <!-- Menu button row -->
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <HBox GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES" GridPane.rowIndex="0" GridPane.columnIndex="0" maxWidth="Infinity">

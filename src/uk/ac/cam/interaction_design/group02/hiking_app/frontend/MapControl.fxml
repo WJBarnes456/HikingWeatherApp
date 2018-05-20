@@ -8,63 +8,22 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.ColumnConstraints?>
 
+<?import javafx.scene.layout.FlowPane?>
 <fx:root stylesheets="@mainDesign.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <bottom>
-        <HBox fx:id="buttonHolder" prefHeight="40" prefWidth="Infinity" BorderPane.alignment="BOTTOM_CENTER">
-            <Button fx:id="todayButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
-                <graphic>
-                    <HBox>
-                        <Label fx:id="todayButtonDayOfWeek" text="E" />
-                        <Label> </Label>
-                        <Label fx:id="todayButtonDate" text="dd" />
-                        <Label> </Label>
-                        <Label fx:id="todayButtonMonth" text="MMM" />
-                    </HBox>
-                </graphic>
-            </Button>
-            <Button fx:id="tomorrowButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
-                <graphic>
-                    <HBox>
-                        <Label fx:id="tomorrowButtonDayOfWeek" text="E" />
-                        <Label> </Label>
-                        <Label fx:id="tomorrowButtonDate" text="dd" />
-                        <Label> </Label>
-                        <Label fx:id="tomorrowButtonMonth" text="MMM" />
-                    </HBox>
-                </graphic>
-            </Button>
-            <Button fx:id="twoDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
-                <graphic>
-                    <HBox>
-                        <Label fx:id="twoDaysButtonDayOfWeek" text="E" />
-                        <Label> </Label>
-                        <Label fx:id="twoDaysButtonDate" text="dd" />
-                        <Label> </Label>
-                        <Label fx:id="twoDaysButtonMonth" text="MMM" />
-                    </HBox>
-                </graphic>
-            </Button>
-            <Button fx:id="threeDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
-                <graphic>
-                    <HBox>
-                        <Label fx:id="threeDaysButtonDayOfWeek" text="E" />
-                        <Label> </Label>
-                        <Label fx:id="threeDaysButtonDate" text="dd" />
-                        <Label> </Label>
-                        <Label fx:id="threeDaysButtonMonth" text="MMM" />
-                    </HBox>
-                </graphic>
-            </Button>
-            <Button fx:id="fourDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
-                <graphic>
-                    <HBox>
-                        <Label fx:id="fourDaysButtonDayOfWeek" text="E" />
-                        <Label fx:id="fourDaysButtonDate" text="dd" />
-                        <Label fx:id="fourDaysButtonMonth" text="MMM" />
-                    </HBox>
-                </graphic>
-            </Button>
-            <Button fx:id="laterButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Later</Button>
+        <HBox fx:id="buttonHolder" prefHeight="60" prefWidth="Infinity" BorderPane.alignment="BOTTOM_CENTER">
+            <Button fx:id="todayButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.todayString}" />
+            <Button fx:id="tomorrowButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.tomorrowString}" />
+            <Button fx:id="twoDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.twoDaysString}" />
+            <Button fx:id="threeDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.threeDaysString}" />
+            <Button fx:id="fourDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.fourDaysString}"/>
+            <Button fx:id="laterButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
+                    textAlignment="CENTER" prefWidth="100" styleClass="mapButton">Later</Button>
         </HBox>
     </bottom>
 </fx:root>

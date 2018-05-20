@@ -48,7 +48,7 @@ public class MainWindow extends Application {
         mapControl = new MapControl();
     }
 
-    /* TODO: Decide on styling */
+    /* TODO: Use set property instead */
     private void markSet(Button b) {
         b.setStyle("-fx-background-color: #246249;" +
                 "-fx-text-fill: #78a895");
@@ -99,7 +99,6 @@ public class MainWindow extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
 
         Scene scene = new Scene(root, 300, 500);
-        scene.getStylesheets().add("mainDesign.css");
 
         primaryStage.setTitle("Hiking Weather Application");
         primaryStage.setScene(scene);

@@ -3,7 +3,23 @@
     -fx-border-color: none;
     -fx-font-family: "Century Gothic";
     -fx-font-size: 12pt;
-    -fx-text-fill: white;
+    -fx-background-color: #286d51;
+    -fx-text-fill: #c5d9d1;
+}
+
+.button .set {
+    -fx-background-color: #246249;
+    -fx-text-fill: #78a895;
+}
+
+.mapButton {
+    -fx-font-size: 9pt;
+    -fx-background-color: linear-gradient(to bottom, #3b9769, #258153 10%, #1b6749 20%, #0b5739 90%);
+}
+
+.mapButton .set {
+    -fx-background-color: #246249;
+    -fx-text-fill: #78a895;
 }
 
 .label {

@@ -5,13 +5,15 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import netscape.javascript.JSObject;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.AppSettings;
@@ -19,6 +21,7 @@ import uk.ac.cam.interaction_design.group02.hiking_app.backend.Hike;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MapControl extends BorderPane implements MapComponentInitializedListener {
@@ -38,31 +41,34 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
     @FXML
     private Button todayButton;
+    private StringProperty todayString = new SimpleStringProperty();
 
     @FXML
     private Button tomorrowButton;
+    private StringProperty tomorrowString = new SimpleStringProperty();
 
     @FXML
     private Button twoDaysButton;
+    private StringProperty twoDaysString = new SimpleStringProperty();
 
     @FXML
     private Button threeDaysButton;
+    private StringProperty threeDaysString = new SimpleStringProperty();
 
     @FXML
     private Button fourDaysButton;
+    private StringProperty fourDaysString = new SimpleStringProperty();
 
     @FXML
     private Button laterButton;
 
 
     private void markSet(Button b) {
-        b.setStyle("-fx-background-color: #246249;" +
-                "-fx-text-fill: #78a895");
+        b.getStyleClass().add("set");
     }
 
     private void markUnset(Button b) {
-        b.setStyle("-fx-background-color: #286d51;" +
-                "-fx-text-fill: #c5d9d1");
+        b.getStyleClass().remove("set");
     }
 
     private void markAllUnset() {
@@ -79,7 +85,7 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         mapView = new GoogleMapView(null, APIKey.getGoogleMapsKey());
         mapView.addMapInializedListener(this);
 
-        markAllUnset();
+        initializeButtons();
     }
 
 
@@ -126,7 +132,7 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
         infoWindowOptions.content("<h2>Location clicked</h2> " +
-                        "Lat: " + latLong.getLatitude() + "<br>" +
+                "Lat: " + latLong.getLatitude() + "<br>" +
                 "Long: " + latLong.getLongitude());
         // TODO: Implement hike addition, getting weather for this clicked point
 
@@ -207,5 +213,77 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
                 map.addMarker(hikeMarker);
             }
         }
+    }
+
+    private void initializeButtons() {
+        // stores the dates for five consecutive days, starting from the current date, in the format MMM dd E
+        String[][] dateParameters = new String[5][3];
+
+        // initializes the calendar with the current date
+        Calendar calendar = Calendar.getInstance();
+        String[] date = calendar.getTime().toString().split(" "); //Date = [Day of Week, Month, Day]
+        dateParameters[0][0] = date[0];
+        dateParameters[0][1] = date[2];
+        dateParameters[0][2] = date[1];
+
+        // adds the following dates from 1 day later to 4 days later (inclusive)
+        for (int i = 1; i <= 4; i++) {
+            calendar.add(Calendar.DATE, 1);
+            date = calendar.getTime().toString().split(" ");
+            dateParameters[i][0] = date[0]; //
+            dateParameters[i][1] = date[2]; //
+            dateParameters[i][2] = date[1]; //
+        }
+
+        // initializes the five buttons to display the five dates
+        todayString.setValue(String.format("%s %s %s", dateParameters[0][0], dateParameters[0][1], dateParameters[0][2]));
+
+        tomorrowString.setValue(String.format("%s %s %s", dateParameters[1][0], dateParameters[1][1], dateParameters[1][2]));
+
+        twoDaysString.setValue(String.format("%s %s %s", dateParameters[2][0], dateParameters[2][1], dateParameters[2][2]));
+
+        threeDaysString.setValue(String.format("%s %s %s", dateParameters[3][0], dateParameters[3][1], dateParameters[3][2]));
+
+        fourDaysString.setValue(String.format("%s %s %s", dateParameters[4][0], dateParameters[4][1], dateParameters[4][2]));
+    }
+
+    public String getTodayString() {
+        return todayString.get();
+    }
+
+    public StringProperty todayStringProperty() {
+        return todayString;
+    }
+
+    public String getTomorrowString() {
+        return tomorrowString.get();
+    }
+
+    public StringProperty tomorrowStringProperty() {
+        return tomorrowString;
+    }
+
+    public String getTwoDaysString() {
+        return twoDaysString.get();
+    }
+
+    public StringProperty twoDaysStringProperty() {
+        return twoDaysString;
+    }
+
+    public String getThreeDaysString() {
+        return threeDaysString.get();
+    }
+
+    public StringProperty threeDaysStringProperty() {
+        return threeDaysString;
+    }
+
+    public String getFourDaysString() {
+        return fourDaysString.get();
+    }
+
+    public StringProperty fourDaysStringProperty() {
+        return fourDaysString;
     }
 }

@@ -155,6 +155,8 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
         AnchorPane.setTopAnchor(mapView, 0.0);
         AnchorPane.setLeftAnchor(mapView, 0.0);
+        AnchorPane.setBottomAnchor(mapView, 0.0);
+        AnchorPane.setRightAnchor(mapView, 0.0);
 
         mapViewHolder.getChildren().add(mapView);
         mapView.toBack();

@@ -41,3 +41,7 @@
 .radio-button .radio {
     -fx-background-insets: 0;
 }
+
+#anchorPane {
+    -fx-background-color: #246249;
+}

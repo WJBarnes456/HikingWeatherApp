@@ -2,18 +2,21 @@ package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeControl extends GridPane {
+    @FXML
+    private AnchorPane weatherPane;
+
     @FXML
     private ImageView todayWeatherIcon;
 
@@ -67,17 +70,42 @@ public class HomeControl extends GridPane {
 
             //Display current weather icon
             Image image = new WritableImage(1,1);
+            Image bgImg = new WritableImage(1,1);
             switch (icon) {
                 case "clear-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                                  bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                                  break;
                 case "clear-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                                    bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                                    break;
                 case "rain": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                             bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                             break;
                 case "snow": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                             bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                             break;
                 case "wind": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                             bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                             break;
                 case "fog": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                            bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                            break;
                 case "cloudy": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                               bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                               break;
                 case "partly-cloudy-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                                          bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                                          break;
                 case "partly-cloudy-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                                            bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
+                                            break;
             }
+            BackgroundImage b = new BackgroundImage(bgImg,
+                    BackgroundRepeat.REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT);
+            weatherPane.setBackground(new Background(b));
             todayWeatherIcon.setImage(image);
 
             //Display current temperature
@@ -113,14 +141,14 @@ public class HomeControl extends GridPane {
         } catch (ForecastException e) {
             System.out.println("Can't get current forecast for home");
             // Display message about the forecast not being available in Home
-            Alert For = new Alert(AlertType.WARNING);
+            Alert For = new Alert(Alert.AlertType.WARNING);
             For.setTitle("Home Control");
             For.setHeaderText("Forecast Exception");
             For.setContentText("The forecast is not available in Home Control.");
         } catch (APIException e) {
             System.out.println("Can't access API for home");
             //Display message about the API not being available in home
-            Alert AP = new Alert(AlertType.WARNING);
+            Alert AP = new Alert(Alert.AlertType.WARNING);
             AP.setTitle("Home Control");
             AP.setHeaderText("API Exception");
             AP.setContentText("The API is not available in Home Control.");

@@ -2,7 +2,11 @@ package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
@@ -11,6 +15,9 @@ import java.io.IOException;
 import java.util.Date;
 
 public class HikeControl extends Pane {
+    @FXML
+    private ImageView weatherIcon;
+
     @FXML
     private Label hikeDate;
 
@@ -46,6 +53,23 @@ public class HikeControl extends Pane {
             ForecastWeatherPoint hikePoint = api.getWeatherForPoint(hikeLat, hikeLong);
             WeatherData forecast = hikePoint.getForecastAtTime(hike.getStartTime());
 
+            String icon = forecast.getIcon();
+
+            //Display hike weather icon
+            Image image = new WritableImage(1,1);
+            switch (icon) {
+                case "clear-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "clear-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "rain": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "snow": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "wind": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "fog": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "cloudy": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "partly-cloudy-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "partly-cloudy-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+            }
+            weatherIcon.setImage(image);
+
             double min = forecast.getLowTemperatureCelsius();
             double max = forecast.getHighTemperatureCelsius();
             double hikeRainProb = forecast.getPrecipitationProbability();
@@ -67,14 +91,14 @@ public class HikeControl extends Pane {
         } catch (ForecastException e) {
             System.out.println("Can't get current forecast for hike");
             //Display message about the forecast not being available in Hike
-            Alert For = new Alert(AlertType.WARNING);
+            Alert For = new Alert(Alert.AlertType.WARNING);
             For.setTitle("Hike Control");
             For.setHeaderText("Forecast Exception");
             For.setContentText("The forecast is not available in Hike Control.");
             
         } catch (APIException e) {
            //Display message about the API not being available
-            Alert AP = new Alert(AlertType.WARNING);
+            Alert AP = new Alert(Alert.AlertType.WARNING);
             AP.setTitle("Hike Control");
             AP.setHeaderText("API Exception");
             AP.setContentText("The API is not available in Hike Control.");

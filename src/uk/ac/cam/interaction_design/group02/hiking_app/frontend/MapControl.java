@@ -7,6 +7,7 @@ import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -31,11 +32,11 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
     private InfoWindow clickInfoWindow;
     private Marker clickMarker;
+    private LatLong myPosition;
+    private int day;
 
     private boolean initialised = false;
 
-    // All of the buttons we need for changing dates and that
-    // TODO: Implement date changing
 
     @FXML
     private Button todayButton;
@@ -79,10 +80,59 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
     }
 
     @FXML
+    private void handled0Button(ActionEvent e) {
+        markAllUnset();
+        markSet(todayButton);
+        day = 0;
+    }
+
+    @FXML
+    private void handled1Button(ActionEvent e) {
+        markAllUnset();
+        markSet(tomorrowButton);
+        day = 1;
+    }
+
+    @FXML
+    private void handled2Button(ActionEvent e) {
+        markAllUnset();
+        markSet(twoDaysButton);
+        day = 2;
+    }
+
+    @FXML
+    private void handled3Button(ActionEvent e) {
+        markAllUnset();
+        markSet(threeDaysButton);
+        day = 3;
+    }
+
+    @FXML
+    private void handled4Button(ActionEvent e) {
+        markAllUnset();
+        markSet(fourDaysButton);
+        day = 4;
+    }
+
+    @FXML
+    private void handleaddhike(ActionEvent e) {
+        AppSettings settings = AppSettings.getInstance();
+        Hike hike = new Hike("gril z ziomeczkami",
+                            myPosition.getLatitude(),
+                            myPosition.getLongitude(),
+                            System.currentTimeMillis() / 1000+86400*day,
+                            System.currentTimeMillis() / 1000+86400*day+7200);
+        settings.addHike(hike);
+    }
+
+    @FXML
     public void initialize() {
         mapView = new GoogleMapView(null, APIKey.getGoogleMapsKey());
         mapView.addMapInializedListener(this);
-
+        day = 0;
+        AppSettings settings = AppSettings.getInstance();
+        myPosition = new LatLong(   settings.getUserLatitude(),
+                                    settings.getUserLongitude());
         initializeButtons();
     }
 
@@ -132,7 +182,7 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         try {
             NaiveAPI api = NaiveAPI.getInstance();
             ForecastWeatherPoint point = api.getWeatherForPoint(latLong.getLatitude(), latLong.getLongitude());
-            WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis() / 1000);
+            WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis() / 1000+86400*day);
             //Get current temperature and rainfall probability
             double temp = currentWeather.getAvgTemperatureCelsius();
             double rainProb = currentWeather.getPrecipitationProbability();

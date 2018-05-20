@@ -66,10 +66,18 @@ public class HikeControl extends Pane {
             hikeDate.setText(date.toString());
         } catch (ForecastException e) {
             System.out.println("Can't get current forecast for hike");
-            //TODO: Display some message about the forecast not being available
+            //Display message about the forecast not being available in Hike
+            Alert For = new Alert(AlertType.WARNING);
+            For.setTitle("Hike Control");
+            For.setHeaderText("Forecast Exception");
+            For.setContentText("The forecast is not available in Hike Control.");
+            
         } catch (APIException e) {
-            System.out.println("Can't access API for hike");
-            //TODO: Display some message about the API not being available
+           //Display message about the API not being available
+            Alert AP = new Alert(AlertType.WARNING);
+            AP.setTitle("Hike Control");
+            AP.setHeaderText("API Exception");
+            AP.setContentText("The API is not available in Hike Control.");
         }
     }
 }

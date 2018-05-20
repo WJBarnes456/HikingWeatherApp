@@ -24,25 +24,25 @@
    <AnchorPane fx:id="weatherPane" prefHeight="174.0" prefWidth="300.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
       <children>
           <HBox AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="15.0">
-              <Label styleClass="basicWeatherInfoToday" text="Temperature: " />
-              <Label fx:id="todayTemp" styleClass="basicWeatherInfoToday" text="#val" />
+              <Label styleClass="todayWeatherLabels" text="Temperature: " />
+              <Label fx:id="todayTemp" styleClass="todayWeatherLabels" text="#val" />
           </HBox>
           <HBox AnchorPane.bottomAnchor="30" AnchorPane.leftAnchor="15.0">
-              <Label styleClass="basicWeatherInfoToday" text="Probability of rain: " />
-              <Label fx:id="todayRainProb" styleClass="basicWeatherInfoToday" text="#val" />
+              <Label styleClass="todayWeatherLabels" text="Probability of rain: " />
+              <Label fx:id="todayRainProb" styleClass="todayWeatherLabels" text="#val" />
           </HBox>
           <HBox AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="15.0">
-              <Label styleClass="basicWeatherInfoToday" text="Ground conditions: " />
-              <Label fx:id="todayGroundCond" styleClass="basicWeatherInfoToday" text="#val" />
+              <Label styleClass="todayWeatherLabels" text="Ground conditions: " />
+              <Label fx:id="todayGroundCond" styleClass="todayWeatherLabels" text="#val" />
           </HBox>
 
-          <Label fx:id="todayDate" text="#todayDate" textAlignment="RIGHT" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
+          <Label fx:id="todayDate" styleClass="todayWeatherLabels" text="#todayDate" textAlignment="RIGHT" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
           <HBox AnchorPane.rightAnchor="80" AnchorPane.topAnchor="70">
               <ImageView fx:id="pin" fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@pin.png" />
                </image></ImageView>
-              <Label fx:id="location" text="#location">
+              <Label fx:id="location" styleClass="todayWeatherLabels" text="#location">
                   <font>
                       <Font size="15.0" />
                   </font>

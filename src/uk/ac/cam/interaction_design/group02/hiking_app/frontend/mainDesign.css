@@ -26,6 +26,11 @@
     -fx-font-family: "Century Gothic";
 }
 
+.todayWeatherLabels .text {
+    -fx-stroke: grey;
+    -fx-stroke-width: 1pt;
+}
+
 .root {
     -fx-background-color: #78a895;
 }

@@ -26,7 +26,18 @@
     -fx-font-family: "Century Gothic";
 }
 
-{
+.root {
     -fx-background-color: #78a895;
 }
 
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: #78a895;
+}
+
+.radio-button .radio {
+    -fx-background-insets: 0;
+}

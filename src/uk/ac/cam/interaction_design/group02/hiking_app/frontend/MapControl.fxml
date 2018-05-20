@@ -10,6 +10,12 @@
 
 <?import javafx.scene.layout.FlowPane?>
 <fx:root stylesheets="@mainDesign.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+        <VBox fx:id="addHolder" prefHeight="Infinity" prefWidth="60" BorderPane.alignment="TOP_RIGHT">
+            <Button fx:id="AddButton"  maxHeight="Infinity" maxWidth="Infinity" prefWidth="60" prefHeight="60"
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="+" />
+        </VBox>
+    </top>
     <bottom>
         <HBox fx:id="buttonHolder" prefHeight="60" prefWidth="Infinity" BorderPane.alignment="BOTTOM_CENTER">
             <Button fx:id="todayButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"

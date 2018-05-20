@@ -63,11 +63,12 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
 
     private void markSet(Button b) {
-        b.getStyleClass().add("set");
+        b.setStyle("-fx-background-color: #246249;\n" +
+                "    -fx-text-fill: #78a895;");
     }
 
     private void markUnset(Button b) {
-        b.getStyleClass().remove("set");
+        b.setStyle(" -fx-background-color: #286d51;");
     }
 
     private void markAllUnset() {
@@ -130,9 +131,6 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         mapView = new GoogleMapView(null, APIKey.getGoogleMapsKey());
         mapView.addMapInializedListener(this);
         day = 0;
-        AppSettings settings = AppSettings.getInstance();
-        myPosition = new LatLong(   settings.getUserLatitude(),
-                                    settings.getUserLongitude());
         initializeButtons();
     }
 
@@ -148,6 +146,9 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
     @Override
     public void mapInitialized() {
         AppSettings settings = AppSettings.getInstance();
+
+        myPosition = new LatLong(   settings.getUserLatitude(),
+                settings.getUserLongitude());
 
         this.setCenter(mapView);
 
@@ -320,6 +321,9 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         threeDaysString.setValue(String.format("%s %s %s", dateParameters[3][0], dateParameters[3][1], dateParameters[3][2]));
 
         fourDaysString.setValue(String.format("%s %s %s", dateParameters[4][0], dateParameters[4][1], dateParameters[4][2]));
+
+        markAllUnset();
+        markSet(todayButton);
     }
 
     public String getTodayString() {

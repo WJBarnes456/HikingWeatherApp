@@ -81,7 +81,7 @@ public class MainWindow extends Application {
     }
 
     private void focusHomeButton() {
-        //homeControl.refresh();
+        homeControl.refresh();
         mainContainer.setCenter(homeControl);
         markAllUnset();
         markSet(homeButton);

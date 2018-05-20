@@ -7,9 +7,11 @@ import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.AppSettings;
@@ -148,21 +150,16 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
     private void handleHikeMarkerClick(Marker hikeMarker, Hike hike) {
         cleanMarker();
 
-        Dialog detailsDialog = new Dialog();
         try {
-            detailsDialog.getDialogPane().setContent(new DetailsControl(hike));
-            detailsDialog.showAndWait();
+            DetailsControl.showDetailsPopup(hike);
         }
         catch (IOException e) {
-            e.printStackTrace();
-            // TODO: Fix details not working
-            /*
             // Fallback if DetailsControl throws an IOException and can't load
             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
             infoWindowOptions.content("<h2>"+hike.getName()+"</h2>");
 
             clickInfoWindow = new InfoWindow(infoWindowOptions);
-            clickInfoWindow.open(map, hikeMarker);*/
+            clickInfoWindow.open(map, hikeMarker);
         }
     }
 

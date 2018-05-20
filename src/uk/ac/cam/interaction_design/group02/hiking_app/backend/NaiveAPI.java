@@ -75,32 +75,32 @@ public class NaiveAPI implements IAPICache {
             JSONObject daily = root.getJSONObject("daily");
             JSONObject hourly = root.getJSONObject("hourly");
             JSONObject minutely = root.getJSONObject("minutely");
+            JSONObject currently = root.getJSONObject("currently");
 
             JSONArray nHour = minutely.getJSONArray("data");
             JSONArray nDay = hourly.getJSONArray("data");
             JSONArray nWeek = daily.getJSONArray("data");
 
-                    /*(long timeForData, double highTempCelsius, double lowTempCelsius, double pressure, double humidity,
-                       double precipitationIntensity, double precipitationProbability,
-                       double visibility, ForecastType forecastType, PrecipitationType precipitationType) */
-
+            double currentTemperature = currently.getDouble("temperature");
+            double currentPressure = currently.getDouble("pressure");
+            double currentHumidity = currently.getDouble("humidity");
+            double currentVisibility = currently.getDouble("visibility");
 
             //loop through next hour for each minute
             for (int i = 0; i < nHour.length(); i++) {
                 JSONObject min = nHour.getJSONObject(i);
                 PrecipitationType type = getPrecipType(min);
 
-                // TODO: Fix apparent temperature not always being present
-                // TODO: Change to real temperature
+                // Minutely forecast doesn't provide temperature, pressure or humidity - just assume same as current.
                 WeatherData toSave = new WeatherData(
                         min.getLong("time"),
-                        min.getDouble("apparentTemperature"),
-                        min.getDouble("apparentTemperature"),
-                        min.getDouble("pressure"),
-                        min.getDouble("humidity"),
+                        currentTemperature,
+                        currentTemperature,
+                        currentPressure,
+                        currentHumidity,
                         min.getDouble("precipIntensity"),
                         min.getDouble("precipProbability"),
-                        min.getDouble("visibility"),
+                        currentVisibility,
                         ForecastType.MINUTELY,
                         type
                 );
@@ -112,12 +112,10 @@ public class NaiveAPI implements IAPICache {
                 JSONObject Hour = nDay.getJSONObject(i);
                 PrecipitationType type = getPrecipType(Hour);
 
-                // TODO: Fix apparent temperature not always being present
-                // TODO: Change to real temperature
                 WeatherData toSave = new WeatherData(
                         Hour.getLong("time"),
-                        Hour.getDouble("apparentTemperature"),
-                        Hour.getDouble("apparentTemperature"),
+                        Hour.getDouble("temperature"),
+                        Hour.getDouble("temperature"),
                         Hour.getDouble("pressure"),
                         Hour.getDouble("humidity"),
                         Hour.getDouble("precipIntensity"),
@@ -134,20 +132,28 @@ public class NaiveAPI implements IAPICache {
                 JSONObject Day = nWeek.getJSONObject(i);
                 PrecipitationType type = getPrecipType(Day);
 
-                // TODO: Fix apparent temperature not always being present
-                // TODO: Change to real temperature
+                // Dodgy hack - sometimes the API doesn't include visibility in daily forecasts, so we need to store a NaN if it's not legit
+                // TODO: Find a more elegant way of doing this
+                double visibility;
+                try {
+                    visibility = Day.getDouble("visibility");
+                } catch (JSONException e) {
+                    visibility = Double.NaN;
+                }
+
                 WeatherData toSave = new WeatherData(
                         Day.getLong("time"),
-                        Day.getDouble("apparentTemperatureHigh"),
-                        Day.getDouble("apparentTemperatureLow"),
+                        Day.getDouble("temperatureMax"),
+                        Day.getDouble("temperatureMin"),
                         Day.getDouble("pressure"),
                         Day.getDouble("humidity"),
                         Day.getDouble("precipIntensity"),
                         Day.getDouble("precipProbability"),
-                        Day.getDouble("visibility"),
+                        visibility,
                         ForecastType.DAILY,
                         type
                 );
+
                 data.add(toSave);
             }
         } catch (MalformedURLException e) {

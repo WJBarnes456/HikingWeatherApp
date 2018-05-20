@@ -53,7 +53,7 @@ public class HomeControl extends GridPane {
         fxmlLoader.load();
     }
     public void refresh() {
-       AppSettings settings = AppSettings.getInstance();
+        AppSettings settings = AppSettings.getInstance();
         NaiveAPI api = NaiveAPI.getInstance();
 
         //Wipe out previous hikes (they might've changed)

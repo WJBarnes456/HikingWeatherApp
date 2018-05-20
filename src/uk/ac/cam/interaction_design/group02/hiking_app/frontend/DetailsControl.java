@@ -2,7 +2,9 @@ package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
 import java.io.IOException;
 
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 
 import java.net.URL;
@@ -77,8 +79,14 @@ public class DetailsControl extends Pane {
 
         fxmlLoader.load();
     }
-	
-	
-	
-	
+
+    /**
+     * Helper method used to easily show a dialog for a hike
+     * @param hike The hike to show details for
+     */
+    public static void showDetailsPopup(Hike hike) throws IOException {
+		Stage detailsStage = new Stage();
+		detailsStage.setScene(new Scene(new DetailsControl(hike)));
+		detailsStage.showAndWait();
+	}
 }

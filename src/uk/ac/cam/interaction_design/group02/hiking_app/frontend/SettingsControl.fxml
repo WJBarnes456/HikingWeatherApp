@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <fx:root prefHeight="450.0" prefWidth="300.0" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
-   <GridPane prefHeight="163.0" prefWidth="300.0" GridPane.rowIndex="1">
+   <GridPane GridPane.vgrow="SOMETIMES" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
      <columnConstraints>
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="201.0" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="99.0" />
+       <ColumnConstraints hgrow="SOMETIMES"/>
+       <ColumnConstraints hgrow="SOMETIMES"/>
      </columnConstraints>
      <rowConstraints>
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -31,19 +31,19 @@
          <Label prefHeight="85.0" prefWidth="201.0" style="-fx-padding: 1.2em;" text="Visibility" GridPane.rowIndex="5" />
          <Label prefHeight="69.0" prefWidth="201.0" style="-fx-padding: 1.2em;" text="Humidity" GridPane.rowIndex="6" />
          <Label prefHeight="69.0" prefWidth="201.0" style="-fx-padding: 1.2em;" text="Air Pressure" GridPane.rowIndex="7" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="RIGHT" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.halignment="RIGHT" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.halignment="RIGHT" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.halignment="RIGHT" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.halignment="RIGHT" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.halignment="RIGHT" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.halignment="RIGHT" />
       </children>
    </GridPane>
-   <GridPane prefHeight="120.0" prefWidth="300.0" GridPane.rowIndex="3">
+   <GridPane GridPane.vgrow="SOMETIMES" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
      <columnConstraints>
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="201.0" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="99.0" />
+       <ColumnConstraints hgrow="SOMETIMES" />
+       <ColumnConstraints hgrow="SOMETIMES" />
      </columnConstraints>
      <rowConstraints>
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -56,19 +56,19 @@
          <Label prefHeight="120.0" prefWidth="150.0" style="-fx-padding: 1.2em;" text="Forecast Changes" GridPane.rowIndex="1" />
          <Label prefHeight="84.0" prefWidth="150.0" style="-fx-padding: 1.2em;" text="Hike Reminders" GridPane.rowIndex="2" />
          <Label prefHeight="91.0" prefWidth="150.0" style="-fx-padding: 1.2em;" text="Rain Prior to Hikes" GridPane.rowIndex="3" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="RIGHT" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.halignment="RIGHT" />
+         <RadioButton mnemonicParsing="false" style="-fx-padding: 0em 0em 0em 3em;" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.halignment="RIGHT" />
       </children>
    </GridPane>
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="416.0" minHeight="30.0" prefHeight="30.0" />
-      <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="243.0" />
-      <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="15.0" />
-      <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="122.0" />
-      <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="42.0" />
+      <RowConstraints minHeight="30.0" prefHeight="30.0" />
+      <RowConstraints minHeight="10.0"/>
+      <RowConstraints minHeight="10.0" prefHeight="15.0" />
+      <RowConstraints minHeight="10.0"/>
+      <RowConstraints minHeight="10.0" prefHeight="42.0" />
    </rowConstraints>
 </fx:root>

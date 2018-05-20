@@ -36,6 +36,8 @@ public class WeatherData {
         this.forecastType = forecastType;
         this.precipitationType = precipitationType;
         this.timeForData = timeForData;
+
+        this.icon = icon;
     }
 
     public long getTimeForData() {
@@ -119,4 +121,6 @@ public class WeatherData {
     public double getVisibility() {
         return visibility;
     }
+
+    public String getIcon() {return icon;}
 }

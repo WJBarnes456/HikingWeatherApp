@@ -13,7 +13,9 @@ import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.APIKey;
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.AppSettings;
+import uk.ac.cam.interaction_design.group02.hiking_app.backend.Hike;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -123,36 +125,9 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         LatLong latLong = event.getLatLong();
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        try {
-            NaiveAPI api = NaiveAPI.getInstance();
-            ForecastWeatherPoint point = api.getWeatherForPoint(latLong.getLatitude(), latLong.getLongitude());
-            WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis() / 1000);
-            //Get current temperature and rainfall probability
-            double temp = currentWeather.getAvgTemperatureCelsius();
-            double rainProb = currentWeather.getPrecipitationProbability();
-            String temptext = "Temperature: " + Integer.toString((int) temp) + "°C";
-            String raintext = "Rain:" + Integer.toString((int) (rainProb * 100)) + "%" ;
-            String groutext = "Ground Conditions:";
-            if(rainProb < 0.1)
-                groutext+="dry";
-            else if (rainProb < 0.25)
-                groutext+="optimal";
-            else
-                groutext+="muddy";
-            infoWindowOptions.content("<h2>Location clicked</h2> " +
-                    temptext + "<br>" +
-                    raintext + "<br>" +
-                    groutext + "<br>" );
-        } catch(ForecastException e) {
-            infoWindowOptions.content("<h2>Location clicked</h2> " +
-                    "Lat: " + latLong.getLatitude() + "<br>" +
-                    "Long: " + latLong.getLongitude());
-        }
-        catch(APIException e) {
-            infoWindowOptions.content("<h2>Location clicked</h2> " +
-                    "Lat: " + latLong.getLatitude() + "<br>" +
-                    "Long: " + latLong.getLongitude());
-        }
+        infoWindowOptions.content("<h2>Location clicked</h2> " +
+                        "Lat: " + latLong.getLatitude() + "<br>" +
+                "Long: " + latLong.getLongitude());
         // TODO: Implement hike addition, getting weather for this clicked point
 
         MarkerOptions clickMarkerOptions = new MarkerOptions();

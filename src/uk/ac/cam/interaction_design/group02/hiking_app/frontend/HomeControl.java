@@ -69,44 +69,16 @@ public class HomeControl extends GridPane {
             String icon = currentWeather.getIcon();
 
             //Display current weather icon
-            Image image = new WritableImage(1,1);
-            Image bgImg = new WritableImage(1,1);
-            switch (icon) {
-                case "clear-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                                  bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                                  break;
-                case "clear-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                                    bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                                    break;
-                case "rain": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                             bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                             break;
-                case "snow": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                             bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                             break;
-                case "wind": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                             bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                             break;
-                case "fog": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                            bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                            break;
-                case "cloudy": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                               bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                               break;
-                case "partly-cloudy-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                                          bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                                          break;
-                case "partly-cloudy-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                                            bgImg = new Image(getClass().getResource(icon+".jpg").toExternalForm());
-                                            break;
-            }
+            Image bgImg = Utils.getBackgroundImage(icon);
+            Image weatherIcon = Utils.getWeatherIcon(icon);
+
             BackgroundImage b = new BackgroundImage(bgImg,
                     BackgroundRepeat.REPEAT,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.DEFAULT,
                     BackgroundSize.DEFAULT);
             weatherPane.setBackground(new Background(b));
-            todayWeatherIcon.setImage(image);
+            todayWeatherIcon.setImage(weatherIcon);
 
             //Display current temperature
             todayTemp.setText(Integer.toString((int) temp) + "°C");

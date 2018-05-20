@@ -4,12 +4,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 
 import java.io.IOException;
 import java.util.Date;
 
-public class HikeControl extends GridPane {
+public class HikeControl extends Pane {
     @FXML
     private Label hikeDate;
 
@@ -59,6 +60,8 @@ public class HikeControl extends GridPane {
                 groundCond.setText("optimal");
             else
                 groundCond.setText("muddy");
+
+            rainProb.setText(Double.toString(hikeRainProb));
 
             hikeDate.setText(date.toString());
         } catch (ForecastException e) {

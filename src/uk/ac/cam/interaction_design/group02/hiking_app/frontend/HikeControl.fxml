@@ -13,9 +13,15 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <HBox AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="5.0" />
+       <HBox AnchorPane.bottomAnchor="17" AnchorPane.leftAnchor="6.0" >
+           <Label text="Ground conditions: " />
+           <Label fx:id="groundCond" text="#value" />
+       </HBox>
 
-      <HBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="5.0" />
+      <HBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="6.0" >
+          <Label text="Probability of rain: " />
+          <Label fx:id="rainProb" text="#rainProb" />
+      </HBox>
       <Label fx:id="hikeDate" layoutX="8.0" layoutY="5.0" text="#date" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="5.0" />
       <Label fx:id="maxTemp" layoutX="263.0" layoutY="4.0" text="#tM" AnchorPane.rightAnchor="3.6666666666666856" AnchorPane.topAnchor="4.0">
          <font>
@@ -24,9 +30,5 @@
       </Label>
       <Label fx:id="minTemp" layoutX="269.0" layoutY="52.0" text="#tm" AnchorPane.bottomAnchor="5.666666666666671" AnchorPane.rightAnchor="9.0" />
       <ImageView fx:id="weatherIcon" fitHeight="75.0" fitWidth="75.0" layoutX="188.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="37.0" AnchorPane.topAnchor="0.0" />
-      <Label layoutX="8.0" layoutY="56.0" text="Probability of rain:" />
-      <Label fx:id="rainProb" layoutX="113.0" layoutY="39.0" text="#rainProb" />
-      <Label layoutX="6.0" layoutY="39.0" text="Ground conditions:" />
-      <Label fx:id="groundCond" layoutX="112.0" layoutY="56.0" text="#value" />
    </children>
 </fx:root>

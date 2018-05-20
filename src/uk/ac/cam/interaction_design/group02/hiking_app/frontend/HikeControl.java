@@ -73,7 +73,7 @@ public class HikeControl extends AnchorPane {
             else
                 groundCond.setText("muddy");
 
-            rainProb.setText(Double.toString(hikeRainProb));
+            rainProb.setText(Math.round(hikeRainProb*100) + "%");
 
             hikeDate.setText(date.toString());
         } catch (ForecastException e) {

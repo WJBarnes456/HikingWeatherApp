@@ -122,10 +122,7 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
     @FXML
     private void handleAddHike(ActionEvent e) {
         AppSettings settings = AppSettings.getInstance();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, 12);
-        calendar.set(Calendar.MINUTE,0);
-        long time = calendar.getTimeInMillis()/1000;
+        long time = getTime();
         Hike hike = new Hike("gril z ziomeczkami",
                 myPosition.getLatitude(),
                 myPosition.getLongitude(),
@@ -134,6 +131,18 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         settings.addHike(hike);
 
         refresh();
+    }
+
+    /**
+     * @return Time for the currently selected date
+     */
+    private long getTime() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.AM_PM, Calendar.PM);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTimeInMillis()/1000;
     }
 
     @FXML
@@ -199,10 +208,7 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         try {
             NaiveAPI api = NaiveAPI.getInstance();
             ForecastWeatherPoint point = api.getWeatherForPoint(myPosition.getLatitude(), myPosition.getLongitude());
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR, 12);
-            calendar.set(Calendar.MINUTE,0);
-            long time = calendar.getTimeInMillis()/1000;
+            long time = getTime();
             WeatherData currentWeather = point.getForecastAtTime(time+86400*day);
             //Get current temperature and rainfall probability
             double temp = currentWeather.getAvgTemperatureCelsius();

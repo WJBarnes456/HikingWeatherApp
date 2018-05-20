@@ -52,9 +52,12 @@ public class HikeControl extends AnchorPane {
 
         try {
             ForecastWeatherPoint hikePoint = api.getWeatherForPoint(hikeLat, hikeLong);
-            WeatherData forecast = hikePoint.getForecastAtTime(hike.getStartTime());
+            WeatherData forecast = hikePoint.getForecastOfTypeAtTime(hike.getStartTime(), ForecastType.DAILY);
 
-            //Display hike weather icon
+            // Set hike name
+            hikeName.setText(hike.getName());
+
+            // Display hike weather icon
             Image icon = Utils.getWeatherIcon(forecast.getIcon());
             weatherIcon.setImage(icon);
 

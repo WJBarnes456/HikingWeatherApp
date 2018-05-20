@@ -53,22 +53,9 @@ public class HikeControl extends Pane {
             ForecastWeatherPoint hikePoint = api.getWeatherForPoint(hikeLat, hikeLong);
             WeatherData forecast = hikePoint.getForecastAtTime(hike.getStartTime());
 
-            String icon = forecast.getIcon();
-
             //Display hike weather icon
-            Image image = new WritableImage(1,1);
-            switch (icon) {
-                case "clear-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                case "clear-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                case "rain": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                case "snow": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                case "wind": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                case "fog": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                case "cloudy": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                case "partly-cloudy-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-                case "partly-cloudy-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
-            }
-            weatherIcon.setImage(image);
+            Image icon = Utils.getWeatherIcon(forecast.getIcon());
+            weatherIcon.setImage(icon);
 
             double min = forecast.getLowTemperatureCelsius();
             double max = forecast.getHighTemperatureCelsius();

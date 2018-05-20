@@ -49,4 +49,10 @@
 
 #anchorPane {
     -fx-background-color: #246249;
+    -fx-border-width: 1pt;
+    -fx-border-color: #1e513c;
+}
+
+.hikeLabels {
+    -fx-text-fill: white;
 }

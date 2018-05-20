@@ -3,15 +3,67 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.ColumnConstraints?>
 
 <fx:root stylesheets="@mainDesign.css" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <bottom>
         <HBox fx:id="buttonHolder" prefHeight="40" prefWidth="Infinity" BorderPane.alignment="BOTTOM_CENTER">
-            <Button fx:id="todayButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Today</Button>
-            <Button fx:id="tomorrowButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Tomorrow</Button>
-            <Button fx:id="twoDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Two Days</Button>
-            <Button fx:id="threeDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Three Days</Button>
-            <Button fx:id="fourDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Four Days</Button>
+            <Button fx:id="todayButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
+                <graphic>
+                    <HBox>
+                        <Label fx:id="todayButtonDayOfWeek" text="E" />
+                        <Label> </Label>
+                        <Label fx:id="todayButtonDate" text="dd" />
+                        <Label> </Label>
+                        <Label fx:id="todayButtonMonth" text="MMM" />
+                    </HBox>
+                </graphic>
+            </Button>
+            <Button fx:id="tomorrowButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
+                <graphic>
+                    <HBox>
+                        <Label fx:id="tomorrowButtonDayOfWeek" text="E" />
+                        <Label> </Label>
+                        <Label fx:id="tomorrowButtonDate" text="dd" />
+                        <Label> </Label>
+                        <Label fx:id="tomorrowButtonMonth" text="MMM" />
+                    </HBox>
+                </graphic>
+            </Button>
+            <Button fx:id="twoDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
+                <graphic>
+                    <HBox>
+                        <Label fx:id="twoDaysButtonDayOfWeek" text="E" />
+                        <Label> </Label>
+                        <Label fx:id="twoDaysButtonDate" text="dd" />
+                        <Label> </Label>
+                        <Label fx:id="twoDaysButtonMonth" text="MMM" />
+                    </HBox>
+                </graphic>
+            </Button>
+            <Button fx:id="threeDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
+                <graphic>
+                    <HBox>
+                        <Label fx:id="threeDaysButtonDayOfWeek" text="E" />
+                        <Label> </Label>
+                        <Label fx:id="threeDaysButtonDate" text="dd" />
+                        <Label> </Label>
+                        <Label fx:id="threeDaysButtonMonth" text="MMM" />
+                    </HBox>
+                </graphic>
+            </Button>
+            <Button fx:id="fourDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">
+                <graphic>
+                    <HBox>
+                        <Label fx:id="fourDaysButtonDayOfWeek" text="E" />
+                        <Label fx:id="fourDaysButtonDate" text="dd" />
+                        <Label fx:id="fourDaysButtonMonth" text="MMM" />
+                    </HBox>
+                </graphic>
+            </Button>
             <Button fx:id="laterButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity">Later</Button>
         </HBox>
     </bottom>

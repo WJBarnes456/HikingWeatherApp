@@ -17,13 +17,14 @@ public class WeatherData {
     private double precipitationProbability;
 
     private double visibility;
+    private String icon;
 
     private ForecastType forecastType;
     private PrecipitationType precipitationType;
 
     public WeatherData(long timeForData, double highTempCelsius, double lowTempCelsius, double pressure, double humidity,
                        double precipitationIntensity, double precipitationProbability,
-                       double visibility, ForecastType forecastType, PrecipitationType precipitationType) {
+                       double visibility, ForecastType forecastType, PrecipitationType precipitationType, String icon) {
         this.highTempCelsius = highTempCelsius;
         this.lowTempCelsius = lowTempCelsius;
         this.pressure = pressure;

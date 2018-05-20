@@ -91,6 +91,13 @@ public class NaiveAPI implements IAPICache {
                 JSONObject min = nHour.getJSONObject(i);
                 PrecipitationType type = getPrecipType(min);
 
+                String icon;
+                try {
+                    icon = min.getString("icon");
+                } catch(JSONException e) {
+                    icon = "default";
+                }
+
                 // Minutely forecast doesn't provide temperature, pressure or humidity - just assume same as current.
                 WeatherData toSave = new WeatherData(
                         min.getLong("time"),
@@ -102,56 +109,59 @@ public class NaiveAPI implements IAPICache {
                         min.getDouble("precipProbability"),
                         currentVisibility,
                         ForecastType.MINUTELY,
-                        type
+                        type,
+                        icon
                 );
                 data.add(toSave);
             }
 
             //loop through next day for each hour
             for (int i = 0; i < nDay.length(); i++) {
-                JSONObject Hour = nDay.getJSONObject(i);
-                PrecipitationType type = getPrecipType(Hour);
+                JSONObject hour = nDay.getJSONObject(i);
+                PrecipitationType type = getPrecipType(hour);
 
                 WeatherData toSave = new WeatherData(
-                        Hour.getLong("time"),
-                        Hour.getDouble("temperature"),
-                        Hour.getDouble("temperature"),
-                        Hour.getDouble("pressure"),
-                        Hour.getDouble("humidity"),
-                        Hour.getDouble("precipIntensity"),
-                        Hour.getDouble("precipProbability"),
-                        Hour.getDouble("visibility"),
+                        hour.getLong("time"),
+                        hour.getDouble("temperature"),
+                        hour.getDouble("temperature"),
+                        hour.getDouble("pressure"),
+                        hour.getDouble("humidity"),
+                        hour.getDouble("precipIntensity"),
+                        hour.getDouble("precipProbability"),
+                        hour.getDouble("visibility"),
                         ForecastType.HOURLY,
-                        type
+                        type,
+                        hour.getString("icon")
                 );
                 data.add(toSave);
             }
 
             //loop through next week for each day
             for (int i = 0; i < nWeek.length(); i++) {
-                JSONObject Day = nWeek.getJSONObject(i);
-                PrecipitationType type = getPrecipType(Day);
+                JSONObject day = nWeek.getJSONObject(i);
+                PrecipitationType type = getPrecipType(day);
 
                 // Dodgy hack - sometimes the API doesn't include visibility in daily forecasts, so we need to store a NaN if it's not legit
                 // TODO: Find a more elegant way of doing this
                 double visibility;
                 try {
-                    visibility = Day.getDouble("visibility");
+                    visibility = day.getDouble("visibility");
                 } catch (JSONException e) {
                     visibility = Double.NaN;
                 }
 
                 WeatherData toSave = new WeatherData(
-                        Day.getLong("time"),
-                        Day.getDouble("temperatureMax"),
-                        Day.getDouble("temperatureMin"),
-                        Day.getDouble("pressure"),
-                        Day.getDouble("humidity"),
-                        Day.getDouble("precipIntensity"),
-                        Day.getDouble("precipProbability"),
+                        day.getLong("time"),
+                        day.getDouble("temperatureMax"),
+                        day.getDouble("temperatureMin"),
+                        day.getDouble("pressure"),
+                        day.getDouble("humidity"),
+                        day.getDouble("precipIntensity"),
+                        day.getDouble("precipProbability"),
                         visibility,
                         ForecastType.DAILY,
-                        type
+                        type,
+                        day.getString("icon")
                 );
 
                 data.add(toSave);
@@ -208,11 +218,13 @@ public class NaiveAPI implements IAPICache {
         double totalPressure = 0;
         double totalHumidity = 0;
         double totalVisibility = 0;
-
         double totalPrecipIntensity = 0;
         double totalPrecipProbability = 0;
+
         ForecastType forecastType = ForecastType.DAILY;
+
         List<PrecipitationType> precipitationTypes = new ArrayList<>();
+        List<String> icons = new ArrayList<>();
 
         //Create a calendar so we can scale back years without worrying about leap years etc
         Calendar c = Calendar.getInstance();
@@ -252,6 +264,7 @@ public class NaiveAPI implements IAPICache {
                 double visibility = dailyResult.getDouble("visibility");
 
                 PrecipitationType type = getPrecipType(dailyResult);
+                String icon = dailyResult.getString("icon");
 
                 //Sum up all the data
                 totalHighTempCelsius += highTempCelsius;
@@ -264,27 +277,46 @@ public class NaiveAPI implements IAPICache {
                 totalVisibility += visibility;
 
                 precipitationTypes.add(type);
+                icons.add(icon);
             } catch (MalformedURLException e) {
                 throw new APIException("Malformed URL! " + e.getMessage());
             }
         }
 
         // Sum counts
-        HashMap<PrecipitationType, Integer> counts = new HashMap<>();
+        HashMap<PrecipitationType, Integer> precipCounts = new HashMap<>();
 
         for (PrecipitationType type : precipitationTypes) {
-            counts.put(type, counts.getOrDefault(type, 0) + 1);
+            precipCounts.put(type, precipCounts.getOrDefault(type, 0) + 1);
         }
 
+        HashMap<String, Integer> iconCounts = new HashMap<>();
+        for (String icon : icons) {
+            iconCounts.put(icon, iconCounts.getOrDefault(icon, 0) + 1);
+        }
+
+
         // Work out the Precip Type with the highest count ie. mode
-        int bestCount = Integer.MIN_VALUE;
+        int bestPrecipCount = Integer.MIN_VALUE;
         PrecipitationType modePrecipType = null;
 
-        for (Map.Entry<PrecipitationType, Integer> entry : counts.entrySet()) {
+        for (Map.Entry<PrecipitationType, Integer> entry : precipCounts.entrySet()) {
             int count = entry.getValue();
-            if (count > bestCount) {
-                bestCount = count;
+            if (count > bestPrecipCount) {
+                bestPrecipCount = count;
                 modePrecipType = entry.getKey();
+            }
+        }
+
+        // Work out the icon with the highest count ie. mode
+        int bestIconCount = Integer.MIN_VALUE;
+        String modeIcon = null;
+
+        for (Map.Entry<String, Integer> entry : iconCounts.entrySet()) {
+            int count = entry.getValue();
+            if (count > bestIconCount) {
+                bestIconCount = count;
+                modeIcon = entry.getKey();
             }
         }
 
@@ -293,7 +325,7 @@ public class NaiveAPI implements IAPICache {
                 totalLowTempCelsius / YEARS_FOR_TYPICAL, totalPressure / YEARS_FOR_TYPICAL,
                 totalHumidity / YEARS_FOR_TYPICAL, totalPrecipIntensity / YEARS_FOR_TYPICAL,
                 totalPrecipProbability / YEARS_FOR_TYPICAL, totalVisibility / YEARS_FOR_TYPICAL,
-                forecastType, modePrecipType);
+                forecastType, modePrecipType, modeIcon);
 
         point.addDataPoint(typicalWeather);
 

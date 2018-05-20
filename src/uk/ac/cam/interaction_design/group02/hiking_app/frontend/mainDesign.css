@@ -32,7 +32,7 @@
 }
 
 .root {
-    -fx-background-color: #78a895;
+    -fx-background-color: #afc5bc;
 }
 
 .scroll-pane > .viewport {
@@ -40,7 +40,7 @@
 }
 
 .scroll-pane {
-    -fx-background-color: #78a895;
+    -fx-background-color: #afc5bc;
 }
 
 .radio-button .radio {
@@ -48,9 +48,9 @@
 }
 
 #anchorPane {
-    -fx-background-color: #246249;
+    -fx-background-color: #4b7e6a;
     -fx-border-width: 1pt;
-    -fx-border-color: #1e513c;
+    -fx-border-color: #377059;
 }
 
 .hikeLabels {

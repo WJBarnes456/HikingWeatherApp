@@ -56,3 +56,11 @@
 .hikeLabels {
     -fx-text-fill: white;
 }
+
+#hikeName {
+    -fx-font-size: 14px;
+}
+
+#maxTemp {
+    -fx-font-size: 18px;
+}

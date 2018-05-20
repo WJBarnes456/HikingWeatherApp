@@ -14,7 +14,7 @@
 
 .mapButton {
     -fx-font-size: 9pt;
-    -fx-background-color: linear-gradient(to bottom, #3b9769, #258153 10%, #1b6749 20%, #0b5739 90%);
+    -fx-background-color: #286d51;
 }
 
 .mapButton .set {

@@ -8,7 +8,14 @@ import java.io.Serializable;
 public class Hike implements Serializable{
     private double longitude;
     private double latitude;
+    /**
+     * Unix time (seconds) of hike start
+     */
     private long startTime;
+
+    /**
+     * Unix time (seconds) of hike end
+     */
     private long endTime;
 
     private String name;

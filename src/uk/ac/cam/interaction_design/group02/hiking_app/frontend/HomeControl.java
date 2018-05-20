@@ -55,6 +55,7 @@ public class HomeControl extends GridPane {
 
         //Wipe out previous hikes (they might've changed)
         hikes.clear();
+        hikeContainer.getChildren().clear();
 
         try {
             ForecastWeatherPoint point = api.getWeatherForPoint(settings.getUserLatitude(), settings.getUserLongitude());

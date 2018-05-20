@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
@@ -14,7 +15,7 @@ import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 import java.io.IOException;
 import java.util.Date;
 
-public class HikeControl extends Pane {
+public class HikeControl extends AnchorPane {
     @FXML
     private ImageView weatherIcon;
 

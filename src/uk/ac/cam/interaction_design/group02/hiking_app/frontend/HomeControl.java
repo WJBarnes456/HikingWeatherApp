@@ -1,22 +1,16 @@
 package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HomeControl extends GridPane {
@@ -70,20 +64,21 @@ public class HomeControl extends GridPane {
 
             //Get current weather icon
             String icon = currentWeather.getIcon();
-            System.out.println(icon);
 
             //Display current weather icon
+            Image image = new WritableImage(1,1);
             switch (icon) {
-                case "clear-day": todayWeatherIcon.setImage(new Image("icons/clear-day.png"));
-                case "clear-night": todayWeatherIcon.setImage(new Image("icons/clear-night.png"));
-                case "rain": todayWeatherIcon.setImage(new Image("icons/rain.png"));
-                case "snow": todayWeatherIcon.setImage(new Image("icons/snow.png"));
-                case "wind": todayWeatherIcon.setImage(new Image("icons/wind.png"));
-                case "fog": todayWeatherIcon.setImage(new Image("icons/fog.png"));
-                case "cloudy": todayWeatherIcon.setImage(new Image("icons/cloud.png"));
-                case "partly-cloudy-day": todayWeatherIcon.setImage(new Image("icons/partly-cloudy-day.png"));
-                case "partly-cloudy-night": todayWeatherIcon.setImage(new Image("icons/partly-cloudy-night.png"));
+                case "clear-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "clear-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "rain": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "snow": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "wind": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "fog": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "cloudy": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "partly-cloudy-day": image = new Image(getClass().getResource(icon+".png").toExternalForm());
+                case "partly-cloudy-night": image = new Image(getClass().getResource(icon+".png").toExternalForm());
             }
+            todayWeatherIcon.setImage(image);
 
             //Display current temperature
             todayTemp.setText(Integer.toString((int) temp) + "°C");

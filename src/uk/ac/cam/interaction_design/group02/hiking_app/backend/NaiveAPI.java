@@ -91,13 +91,6 @@ public class NaiveAPI implements IAPICache {
                 JSONObject min = nHour.getJSONObject(i);
                 PrecipitationType type = getPrecipType(min);
 
-                String icon;
-                try {
-                    icon = min.getString("icon");
-                } catch(JSONException e) {
-                    icon = "default";
-                }
-
                 // Minutely forecast doesn't provide temperature, pressure or humidity - just assume same as current.
                 WeatherData toSave = new WeatherData(
                         min.getLong("time"),
@@ -110,7 +103,7 @@ public class NaiveAPI implements IAPICache {
                         currentVisibility,
                         ForecastType.MINUTELY,
                         type,
-                        icon
+                        currently.getString("icon")
                 );
                 data.add(toSave);
             }

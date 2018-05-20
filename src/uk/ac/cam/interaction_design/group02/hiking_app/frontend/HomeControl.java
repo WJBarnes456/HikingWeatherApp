@@ -98,10 +98,6 @@ public class HomeControl extends GridPane {
             //Display today's date
             todayDate.setText(java.time.LocalDate.now().toString());
 
-            /*Hike x = new Hike("Hike Trial", settings.getUserLatitude(), settings.getUserLongitude(), 1626748084, 1626748700);
-            HikeControl y = new HikeControl(x);
-            hikeContainer.getChildren().add(y);*/
-
             for(Hike h : settings.getHikes()) {
                 try {
                     HikeControl hike = new HikeControl(h);

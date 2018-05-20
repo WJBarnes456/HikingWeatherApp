@@ -28,7 +28,7 @@ public class HikeControl extends GridPane {
     @FXML
     private Label hikeName;
 
-    public HikeControl(Hike hike) throws IOException, APIException, ForecastException {
+    public HikeControl(Hike hike) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HikeControl.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -41,24 +41,32 @@ public class HikeControl extends GridPane {
         double hikeLat = hike.getLatitude();
         double hikeLong = hike.getLongitude();
 
-        ForecastWeatherPoint hikePoint = api.getWeatherForPoint(hikeLat, hikeLong);
-        WeatherData forecast = hikePoint.getForecastAtTime(hike.getStartTime());
+        try {
+            ForecastWeatherPoint hikePoint = api.getWeatherForPoint(hikeLat, hikeLong);
+            WeatherData forecast = hikePoint.getForecastAtTime(hike.getStartTime());
 
-        double min = forecast.getLowTemperatureCelsius();
-        double max = forecast.getHighTemperatureCelsius();
-        double hikeRainProb = forecast.getPrecipitationProbability();
-        Date date = new Date(hike.getStartTime()*1000);
+            double min = forecast.getLowTemperatureCelsius();
+            double max = forecast.getHighTemperatureCelsius();
+            double hikeRainProb = forecast.getPrecipitationProbability();
+            Date date = new Date(hike.getStartTime()*1000);
 
-        minTemp.setText(Integer.toString((int) min) + "°C");
-        maxTemp.setText(Integer.toString((int) max) + "°C");
+            minTemp.setText(Integer.toString((int) min) + "°C");
+            maxTemp.setText(Integer.toString((int) max) + "°C");
 
-        if (hikeRainProb < 0.1)
-            groundCond.setText("dry");
-        else if (hikeRainProb < 0.25)
-            groundCond.setText("optimal");
-        else
-            groundCond.setText("muddy");
+            if (hikeRainProb < 0.1)
+                groundCond.setText("dry");
+            else if (hikeRainProb < 0.25)
+                groundCond.setText("optimal");
+            else
+                groundCond.setText("muddy");
 
-        hikeDate.setText(date.toString());
+            hikeDate.setText(date.toString());
+        } catch (ForecastException e) {
+            System.out.println("Can't get current forecast for hike");
+            //TODO: Display some message about the forecast not being available
+        } catch (APIException e) {
+            System.out.println("Can't access API for hike");
+            //TODO: Display some message about the API not being available
+        }
     }
 }

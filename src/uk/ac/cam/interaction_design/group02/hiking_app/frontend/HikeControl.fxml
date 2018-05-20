@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="300.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         prefHeight="75.0" prefWidth="300.0" type="javafx.scene.layout.AnchorPane" onMouseClicked="#handleOnMouseClicked"
+         xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="hikeName" layoutX="8.0" layoutY="21.0" styleClass="hikeLabels" text="hikeName" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="21.0">
          <font>

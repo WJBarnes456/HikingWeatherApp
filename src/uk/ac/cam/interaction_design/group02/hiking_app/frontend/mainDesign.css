@@ -28,7 +28,7 @@
 
 .todayWeatherLabels .text {
     -fx-stroke: grey;
-    -fx-stroke-width: 1pt;
+    -fx-stroke-width: 0.5pt;
 }
 
 .root {

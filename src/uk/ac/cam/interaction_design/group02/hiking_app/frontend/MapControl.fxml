@@ -18,16 +18,16 @@
     </top>
     <bottom>
         <HBox fx:id="buttonHolder" prefHeight="60" prefWidth="Infinity" BorderPane.alignment="BOTTOM_CENTER">
-            <Button fx:id="todayButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
-                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.todayString}" />
+              <Button fx:id="todayButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.todayString}" onAction="#handled0Button" />
             <Button fx:id="tomorrowButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
-                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.tomorrowString}" />
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.tomorrowString}" onAction="#handled1Button" />
             <Button fx:id="twoDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
-                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.twoDaysString}" />
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.twoDaysString}" onAction="#handled2Button" />
             <Button fx:id="threeDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
-                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.threeDaysString}" />
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.threeDaysString}" onAction="#handled3Button" />
             <Button fx:id="fourDaysButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"
-                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.fourDaysString}"/>
+                    wrapText="true" textAlignment="CENTER" styleClass="mapButton" text="${controller.fourDaysString}" onAction="#handled4Button" />
             <Button fx:id="laterButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity"
                     textAlignment="CENTER" prefWidth="100" styleClass="mapButton">Later</Button>
         </HBox>

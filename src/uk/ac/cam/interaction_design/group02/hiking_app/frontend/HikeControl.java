@@ -7,12 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class HikeControl extends AnchorPane {
@@ -37,7 +39,23 @@ public class HikeControl extends AnchorPane {
     @FXML
     private Label hikeName;
 
+    private Hike hike;
+
+    @FXML
+    private void handleOnMouseClicked(MouseEvent event) {
+        try {
+            DetailsControl.showDetailsPopup(hike);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Failed to show hike details");
+            alert.showAndWait();
+        }
+    }
+
     public HikeControl(Hike hike) throws IOException {
+        this.hike = hike;
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HikeControl.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -78,7 +96,8 @@ public class HikeControl extends AnchorPane {
 
             rainProb.setText(Math.round(hikeRainProb*100) + "%");
 
-            hikeDate.setText(date.toString());
+            SimpleDateFormat formatter = new SimpleDateFormat("E d MMM YYYY");
+            hikeDate.setText(formatter.format(date));
         } catch (ForecastException e) {
             System.out.println("Can't get current forecast for hike");
             //Display message about the forecast not being available in Hike

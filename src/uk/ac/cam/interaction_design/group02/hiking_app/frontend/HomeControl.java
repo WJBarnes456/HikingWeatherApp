@@ -118,9 +118,17 @@ public class HomeControl extends GridPane {
         } catch (ForecastException e) {
             System.out.println("Can't get current forecast for home");
             //TODO: Display some message about the forecast not being available
+            Alert For = new Alert(AlertType.WARNING);
+            For.setTitle("Forecast");
+            For.setHeaderText("Forecast Exception");
+            For.setContentText("The forecast is not available.");
         } catch (APIException e) {
             System.out.println("Can't access API for home");
             //TODO: Display some message about the API not being available
+            Alert AP = new Alert(AlertType.WARNING);
+            AP.setTitle("API");
+            AP.setHeaderText("API Exception");
+            AP.setContentText("The API is not available.");
         }
     }
 }

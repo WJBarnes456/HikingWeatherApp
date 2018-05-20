@@ -10,8 +10,15 @@
 
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 <fx:root stylesheets="@mainDesign.css" type="javafx.scene.layout.BorderPane"
          xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <AnchorPane fx:id="mapViewHolder" minWidth="0" minHeight="0">
+            <Button fx:id="addHikeButton" prefHeight="30" prefWidth="30" text="+"
+                    AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" onAction="#handleAddHike"></Button>
+        </AnchorPane>
+    </center>
     <bottom>
         <HBox fx:id="buttonHolder" prefHeight="60" prefWidth="Infinity" BorderPane.alignment="BOTTOM_CENTER">
               <Button fx:id="todayButton" HBox.hgrow="ALWAYS" maxHeight="Infinity" maxWidth="Infinity" prefWidth="100"

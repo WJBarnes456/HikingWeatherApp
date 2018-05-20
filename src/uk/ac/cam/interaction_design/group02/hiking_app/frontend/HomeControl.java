@@ -68,6 +68,23 @@ public class HomeControl extends GridPane {
             double temp = currentWeather.getAvgTemperatureCelsius();
             double rainProb = currentWeather.getPrecipitationProbability();
 
+            //Get current weather icon
+            String icon = currentWeather.getIcon();
+            System.out.println(icon);
+
+            //Display current weather icon
+            switch (icon) {
+                case "clear-day": todayWeatherIcon.setImage(new Image("icons/clear-day.png"));
+                case "clear-night": todayWeatherIcon.setImage(new Image("icons/clear-night.png"));
+                case "rain": todayWeatherIcon.setImage(new Image("icons/rain.png"));
+                case "snow": todayWeatherIcon.setImage(new Image("icons/snow.png"));
+                case "wind": todayWeatherIcon.setImage(new Image("icons/wind.png"));
+                case "fog": todayWeatherIcon.setImage(new Image("icons/fog.png"));
+                case "cloudy": todayWeatherIcon.setImage(new Image("icons/cloud.png"));
+                case "partly-cloudy-day": todayWeatherIcon.setImage(new Image("icons/partly-cloudy-day.png"));
+                case "partly-cloudy-night": todayWeatherIcon.setImage(new Image("icons/partly-cloudy-night.png"));
+            }
+
             //Display current temperature
             todayTemp.setText(Integer.toString((int) temp) + "°C");
 

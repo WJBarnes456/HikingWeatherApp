@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -60,6 +61,9 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
     @FXML
     private Button laterButton;
+
+    @FXML
+    private AnchorPane mapViewHolder;
 
 
     private void markSet(Button b) {
@@ -116,14 +120,16 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
     }
 
     @FXML
-    private void handleaddhike(ActionEvent e) {
+    private void handleAddHike(ActionEvent e) {
         AppSettings settings = AppSettings.getInstance();
         Hike hike = new Hike("gril z ziomeczkami",
-                            myPosition.getLatitude(),
-                            myPosition.getLongitude(),
-                            System.currentTimeMillis() / 1000+86400*day,
-                            System.currentTimeMillis() / 1000+86400*day+7200);
+                myPosition.getLatitude(),
+                myPosition.getLongitude(),
+                System.currentTimeMillis() / 1000+86400*day,
+                System.currentTimeMillis() / 1000+86400*day+7200);
         settings.addHike(hike);
+
+        refresh();
     }
 
     @FXML
@@ -147,10 +153,13 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
     public void mapInitialized() {
         AppSettings settings = AppSettings.getInstance();
 
-        myPosition = new LatLong(   settings.getUserLatitude(),
-                settings.getUserLongitude());
+        AnchorPane.setTopAnchor(mapView, 0.0);
+        AnchorPane.setLeftAnchor(mapView, 0.0);
+        AnchorPane.setBottomAnchor(mapView, 0.0);
+        AnchorPane.setRightAnchor(mapView, 0.0);
 
-        this.setCenter(mapView);
+        mapViewHolder.getChildren().add(mapView);
+        mapView.toBack();
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
@@ -177,12 +186,12 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
         cleanMarker();
 
         // Now handle the actual click event
-        LatLong latLong = event.getLatLong();
+        myPosition = event.getLatLong();
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
         try {
             NaiveAPI api = NaiveAPI.getInstance();
-            ForecastWeatherPoint point = api.getWeatherForPoint(latLong.getLatitude(), latLong.getLongitude());
+            ForecastWeatherPoint point = api.getWeatherForPoint(myPosition.getLatitude(), myPosition.getLongitude());
             WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis() / 1000+86400*day);
             //Get current temperature and rainfall probability
             double temp = currentWeather.getAvgTemperatureCelsius();
@@ -202,18 +211,18 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
                     groutext + "<br>" );
         } catch(ForecastException e) {
             infoWindowOptions.content("<h2>Location clicked</h2> " +
-                    "Lat: " + latLong.getLatitude() + "<br>" +
-                    "Long: " + latLong.getLongitude());
+                    "Lat: " + myPosition.getLatitude() + "<br>" +
+                    "Long: " + myPosition.getLongitude());
         }
         catch(APIException e) {
             infoWindowOptions.content("<h2>Location clicked</h2> " +
-                    "Lat: " + latLong.getLatitude() + "<br>" +
-                    "Long: " + latLong.getLongitude());
+                    "Lat: " + myPosition.getLatitude() + "<br>" +
+                    "Long: " + myPosition.getLongitude());
         }
         // TODO: Implement hike addition, getting weather for this clicked point
 
         MarkerOptions clickMarkerOptions = new MarkerOptions();
-        clickMarkerOptions.position(latLong);
+        clickMarkerOptions.position(myPosition);
 
         clickMarker = new Marker(clickMarkerOptions);
         map.addMarker(clickMarker);

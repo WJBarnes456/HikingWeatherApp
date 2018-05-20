@@ -65,7 +65,7 @@ public class NaiveAPI implements IAPICache {
      * @return Forecast data for a location
      * @throws APIException When the API isn't working (eg. hit rate limit, malformed request)
      */
-    public ForecastWeatherPoint fetchWeatherUsingAPI(double latitude, double longitude) throws APIException {
+    private ForecastWeatherPoint fetchWeatherUsingAPI(double latitude, double longitude) throws APIException {
         List<WeatherData> data = new ArrayList<>();
 
         try {

@@ -2,6 +2,7 @@ package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
 import java.io.IOException;
 
+import javafx.scene.layout.Pane;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 
 import java.net.URL;
@@ -14,57 +15,70 @@ import javafx.scene.control.Label;
 
 import javafx.fxml.FXMLLoader;
 
-public class DetailsControl implements Initializable {
+public class DetailsControl extends Pane {
 	
 	//Use the fxml fx:id tag as the name of the object
 	// You can find these in the fxml file, it is normally the first attribute.
 	// The name has to be exactly the same as the fx:id in the fxml file
-	@FXML Label humidity;
-	@FXML Label visibility;
-	@FXML Label air_pressure;
-	@FXML Label high;
-	@FXML Label probability;
-	@FXML Label intensity;
+	@FXML
+	Label humidity;
 
-	private Hike hike;
+	@FXML
+	Label visibility;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
+	@FXML
+	Label air_pressure;
+
+	@FXML
+	Label high;
+
+	@FXML
+    Label probability;
+
+	@FXML
+    Label intensity;
+
+	Hike hike;
+
+	
+	@FXML
+    public void initialize() throws APIException, ForecastException {
+	    IAPICache api = NaiveAPI.getInstance();
+
 		double latitude = hike.getLatitude();
 		double longitude = hike.getLongitude();
 		long startTime = hike.getStartTime();
 
-		ForecastWeatherPoint weatherPoint = null;
-		try {
-			weatherPoint = NaiveAPI.fetchWeatherUsingAPI(latitude,longitude);
-		} catch (APIException e) {
-			e.printStackTrace();
-		}
-		WeatherData data = null;
-		try {
-			data = weatherPoint.getForecastAtTime(startTime);
-		} catch (ForecastException e) {
-			e.printStackTrace();
-		}
+		ForecastWeatherPoint weatherPoint = api.getWeatherForPoint(latitude,longitude);
+		WeatherData data = weatherPoint.getForecastAtTime(startTime);
 
-		humidity.setText(Double.toString(data.getHumidity()));
-		visibility.setText(Double.toString(data.getVisibility()));
-		air_pressure.setText(Double.toString(data.getPressure()));
-		high.setText(Double.toString(data.getHighTemperatureCelsius()));
-		probability.setText(Double.toString(data.getPrecipitationProbability()));
-		intensity.setText(Double.toString(data.getPrecipitationIntensity()));
+		String humidityString = Double.toString(data.getHumidity());
+        String visibilityString = Double.toString(data.getVisibility());
+        String pressureString = Double.toString(data.getPressure());
+        String highTempString = Double.toString(data.getHighTemperatureCelsius());
+        String precipProbString = Double.toString(data.getPrecipitationProbability());
+        String precipIntensityString = Double.toString(data.getPrecipitationIntensity());
 
-    	}
+		humidity.setText(humidityString);
+		visibility.setText(visibilityString);
+		air_pressure.setText(pressureString);
+		high.setText(highTempString);
+		probability.setText(precipProbString);
+		intensity.setText(precipIntensityString);
+	}
 	
 	public DetailsControl(Hike hike) throws IOException {
-		
-        	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DetailsControl.fxml"));
-        	fxmlLoader.setRoot(this);
-        	fxmlLoader.setController(this);
-        	//Controller HAS to be set here, otherwise you get a self-cyclic instantiation => VERY BAD
+	    this.hike = hike;
 
-        	fxmlLoader.load();
-    	}
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DetailsControl.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        //Controller HAS to be set here, otherwise you get a self-cyclic instantiation => VERY BAD
 
-	}
+        fxmlLoader.load();
+    }
+	
+	
+	
+	
+}

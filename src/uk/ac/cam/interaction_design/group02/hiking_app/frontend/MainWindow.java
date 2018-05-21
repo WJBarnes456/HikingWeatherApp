@@ -44,7 +44,7 @@ public class MainWindow extends Application {
 
     public MainWindow() throws IOException {
         homeControl = new HomeControl();
-        settingsControl = new SettingsControl();
+        settingsControl = new SettingsControl(getHostServices());
         mapControl = new MapControl();
     }
 

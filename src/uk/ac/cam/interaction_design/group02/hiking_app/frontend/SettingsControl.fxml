@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.Hyperlink?>
 <fx:root prefHeight="450.0" prefWidth="300.0" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <GridPane GridPane.vgrow="SOMETIMES" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
      <columnConstraints>
@@ -67,10 +68,12 @@
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints minHeight="30.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0"/>
-      <RowConstraints minHeight="10.0" prefHeight="15.0" />
-      <RowConstraints minHeight="10.0"/>
-      <RowConstraints minHeight="10.0" prefHeight="42.0" />
+      <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+      <RowConstraints minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+      <RowConstraints minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES"/>
+       <RowConstraints minHeight="10.0" maxHeight="30" vgrow="NEVER"/>
    </rowConstraints>
+    <Hyperlink GridPane.rowIndex="4" onMouseClicked="#handleLinkClick">Powered by Dark Sky</Hyperlink>
 </fx:root>

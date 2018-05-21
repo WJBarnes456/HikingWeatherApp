@@ -26,9 +26,9 @@
             <RowConstraints prefHeight="30" vgrow="SOMETIMES" />
             <RowConstraints prefHeight="300" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Label fx:id="hikeName" prefHeight="27.0" prefWidth="140.0"
+        <Label fx:id="hikeName"
                style="-fx-font-size: 18px;" text="Hike Name" GridPane.rowIndex="0" GridPane.columnIndex="0"
-                GridPane.hgrow="SOMETIMES"/>
+                GridPane.hgrow="SOMETIMES" GridPane.columnSpan="2"/>
         <GridPane prefHeight="113.0" prefWidth="140.0" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="112.00002034505208"/>
@@ -48,7 +48,7 @@
                        GridPane.rowIndex="1"/>
                 <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Air Pressure:"
                        GridPane.rowIndex="2"/>
-                <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="High Temperature:"
+                <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Temperature:"
                        GridPane.rowIndex="3"/>
                 <Label prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="Precipitation chance:"
                        GridPane.rowIndex="4"/>
@@ -60,7 +60,7 @@
                        GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <Label fx:id="air_pressure" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%"
                        GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <Label fx:id="high" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%"
+                <Label fx:id="temperature" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%"
                        GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                 <Label fx:id="probability" prefHeight="30.0" prefWidth="117.0" style="-fx-font-size: 11 px;" text="14%"
                        GridPane.columnIndex="1" GridPane.rowIndex="4"/>
@@ -68,7 +68,7 @@
                        GridPane.columnIndex="1" GridPane.rowIndex="5"/>
             </children>
         </GridPane>
-        <Label fx:id="notes" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" text="Notes"/>
+        <Label fx:id="notes" GridPane.columnIndex="1" GridPane.rowIndex="1" text="Notes"/>
     </GridPane>
     <LineChart fx:id="linechart" prefHeight="Infinity" prefWidth="Infinity"
                GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">

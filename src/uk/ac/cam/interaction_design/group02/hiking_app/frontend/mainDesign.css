@@ -43,6 +43,10 @@
     -fx-background-color: #afc5bc;
 }
 
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
 .radio-button .radio {
     -fx-background-insets: 0;
 }

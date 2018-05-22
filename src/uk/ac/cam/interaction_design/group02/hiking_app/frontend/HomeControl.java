@@ -2,6 +2,8 @@ package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -130,8 +132,9 @@ public class HomeControl extends GridPane {
             // Makes it much clearer
             if(hikes.size() == 0) {
                 Label label = new Label("No hikes added");
-                label.setTextAlignment(TextAlignment.CENTER);
-                label.setMaxWidth(Double.POSITIVE_INFINITY);
+                label.setPadding(new Insets(100, 0, 0, 100));
+                //label.setAlignment(Pos.CENTER);
+                //label.setTextAlignment(TextAlignment.CENTER);
                 hikeContainer.getChildren().add(label);
             } else {
                 for(Hike h : settings.getHikes()) {

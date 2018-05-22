@@ -200,6 +200,20 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
 
         myPosition = new LatLong(settings.getUserLatitude(), settings.getUserLongitude());
 
+        // Dodgy hack to force the map to render -- open an infowindow at the current position and immediately close it
+        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+        MarkerOptions clickMarkerOptions = new MarkerOptions();
+        clickMarkerOptions.position(myPosition);
+        Marker marker = new Marker(clickMarkerOptions);
+        map.addMarker(marker);
+        InfoWindow infoWindow = new InfoWindow(infoWindowOptions);
+        infoWindow.open(map, marker);
+        infoWindow.close();
+        map.removeMarker(marker);
+        // TODO: Find a more elegant way of forcing the map to render
+
+        map.setCenter(myPosition);
+
         initialised = true;
 
         refresh();

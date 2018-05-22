@@ -69,7 +69,6 @@
 }
 
 #weatherPane {
-    /*-fx-shape:"M0 13 C0 5 5 0 13 0 L86 0 C94 0 99 5 99 13 L99 86 C99 94 94 99 86 99 L13 99 C5 99 0 94 0 86Z";*/
     -fx-shape: "M 0 10 A 0 0 0 0 1 0 0 L 290 0 A 0 0 0 0 1 300 0 L 300 164 A 10 10 0 0 1 290 174 L 10 174 A 10 10 0 0 1 0 164 Z";
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }

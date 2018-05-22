@@ -1,14 +1,13 @@
 package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
-import javafx.css.StyleClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import uk.ac.cam.interaction_design.group02.hiking_app.backend.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class HomeControl extends GridPane {
     @FXML
     private Label locationLabel;
 
-    private List<HikeControl> hikes = new ArrayList<>();
+    private List<HikeControl> hikeControls = new ArrayList<>();
 
     public HomeControl() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomeControl.fxml"));
@@ -67,7 +66,7 @@ public class HomeControl extends GridPane {
         NaiveAPI api = NaiveAPI.getInstance();
 
         //Wipe out previous hikes (they might've changed)
-        hikes.clear();
+        hikeControls.clear();
         hikeContainer.getChildren().clear();
 
         weatherPane.toFront();
@@ -125,13 +124,24 @@ public class HomeControl extends GridPane {
             //Display today's date
             todayDate.setText(java.time.LocalDate.now().toString());
 
-            for(Hike h : settings.getHikes()) {
-                try {
-                    HikeControl hike = new HikeControl(h);
-                    hikes.add(hike);
-                    hikeContainer.getChildren().add(hike);
-                } catch (IOException e) {
-                    System.err.println("Failed to create hike dialog");
+            List<Hike> hikes = settings.getHikes();
+
+            // Add a statement saying there are no hikes added when there aren't any
+            // Makes it much clearer
+            if(hikes.size() == 0) {
+                Label label = new Label("No hikes added");
+                label.setTextAlignment(TextAlignment.CENTER);
+                label.setMaxWidth(Double.POSITIVE_INFINITY);
+                hikeContainer.getChildren().add(label);
+            } else {
+                for(Hike h : settings.getHikes()) {
+                    try {
+                        HikeControl hikeControl = new HikeControl(h);
+                        hikeControls.add(hikeControl);
+                        hikeContainer.getChildren().add(hikeControl);
+                    } catch (IOException e) {
+                        System.err.println("Failed to create hike dialog");
+                    }
                 }
             }
         } catch (ForecastException e) {

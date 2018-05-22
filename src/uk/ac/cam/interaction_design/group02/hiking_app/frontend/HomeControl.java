@@ -1,5 +1,6 @@
 package uk.ac.cam.interaction_design.group02.hiking_app.frontend;
 
+import javafx.css.StyleClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -38,6 +39,18 @@ public class HomeControl extends GridPane {
     @FXML
     private ImageView pin;
 
+    @FXML
+    private Label todayTempLabel;
+
+    @FXML
+    private Label groundCondLabel;
+
+    @FXML
+    private Label rainProbLabel;
+
+    @FXML
+    private Label locationLabel;
+
     private List<HikeControl> hikes = new ArrayList<>();
 
     public HomeControl() throws IOException {
@@ -71,6 +84,18 @@ public class HomeControl extends GridPane {
 
             //Display current weather icon
             Image bgImg = Utils.getBackgroundImage(icon);
+            if(icon.equals("clear-night") || icon.equals("partly-cloudy-night")) {
+                todayDate.setStyle("-fx-text-fill: white;");
+                todayGroundCond.setStyle("-fx-text-fill: white;");
+                todayRainProb.setStyle("-fx-text-fill: white;");
+                todayTemp.setStyle("-fx-text-fill: white;");
+                todayTempLabel.setStyle("-fx-text-fill: white;");
+                groundCondLabel.setStyle("-fx-text-fill: white;");
+                rainProbLabel.setStyle("-fx-text-fill: white;");
+                locationLabel.setStyle("-fx-text-fill: white;");
+            }
+            if(icon.equals("fog"))
+                todayTemp.setStyle("-fx-text-fill: white;");
             Image weatherIcon = Utils.getWeatherIcon(icon);
 
             BackgroundImage b = new BackgroundImage(bgImg,

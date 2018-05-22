@@ -24,15 +24,15 @@
    <AnchorPane fx:id="weatherPane" prefHeight="174.0" prefWidth="300.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS">
       <children>
           <HBox AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="15.0">
-              <Label styleClass="todayWeatherLabels" text="Temperature: " />
+              <Label fx:id="todayTempLabel" styleClass="todayWeatherLabels" text="Temperature: " />
               <Label fx:id="todayTemp" styleClass="todayWeatherLabels" text="#val" />
           </HBox>
           <HBox AnchorPane.bottomAnchor="30" AnchorPane.leftAnchor="15.0">
-              <Label styleClass="todayWeatherLabels" text="Probability of rain: " />
+              <Label fx:id="rainProbLabel" styleClass="todayWeatherLabels" text="Probability of rain: " />
               <Label fx:id="todayRainProb" styleClass="todayWeatherLabels" text="#val" />
           </HBox>
           <HBox AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="15.0">
-              <Label styleClass="todayWeatherLabels" text="Ground conditions: " />
+              <Label fx:id="groundCondLabel" styleClass="todayWeatherLabels" text="Ground conditions: " />
               <Label fx:id="todayGroundCond" styleClass="todayWeatherLabels" text="#val" />
           </HBox>
 
@@ -42,7 +42,7 @@
                <image>
                   <Image url="@pin.png" />
                </image></ImageView>
-              <Label fx:id="location" styleClass="todayWeatherLabels" text="#location">
+              <Label fx:id="locationLabel" styleClass="todayWeatherLabels" text="#location">
                   <font>
                       <Font size="15.0" />
                   </font>

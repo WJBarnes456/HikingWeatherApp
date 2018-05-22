@@ -8,21 +8,21 @@
 
 <fx:root fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleOnMouseClicked" prefHeight="75.0" prefWidth="300.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="hikeName" layoutX="8.0" layoutY="21.0" styleClass="hikeLabels" text="hikeName" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="21.0">
+      <Label fx:id="hikeName" layoutX="8.0" layoutY="21.0" styleClass="hikeLabels" text="hikeName" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="18.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-       <HBox AnchorPane.bottomAnchor="17" AnchorPane.leftAnchor="6.0">
+       <HBox AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="6.0">
            <Label styleClass="hikeLabels" text="Ground conditions: " />
            <Label fx:id="groundCond" styleClass="hikeLabels" text="#value" />
        </HBox>
 
-      <HBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="6.0">
+      <HBox AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="6.0">
           <Label styleClass="hikeLabels" text="Probability of rain: " />
           <Label fx:id="rainProb" styleClass="hikeLabels" text="#rainProb" />
       </HBox>
-      <Label fx:id="hikeDate" layoutX="8.0" layoutY="5.0" styleClass="hikeLabels" text="#date" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="5.0" />
+      <Label fx:id="hikeDate" layoutX="8.0" layoutY="5.0" styleClass="hikeLabels" text="#date" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="3.0" />
       <Label fx:id="maxTemp" layoutX="263.0" layoutY="4.0" styleClass="hikeLabels" text="#tM" AnchorPane.rightAnchor="3.6666666666666856" AnchorPane.topAnchor="4.0">
          <font>
             <Font size="18.0" />

@@ -327,9 +327,12 @@ public class NaiveAPI implements IAPICache {
 
     private boolean isStale(ForecastWeatherPoint point, long currentTime) {
         long timeForecastGenerated = point.getTimeForecastGenerated();
-        long timeDelta = timeForecastGenerated - currentTime;
 
-        return (timeDelta < DATA_VALIDITY);
+        // The number of seconds since the forecast was generated
+        long timeDelta = currentTime - timeForecastGenerated;
+
+        // Stale only if it's been a long time
+        return (timeDelta > DATA_VALIDITY);
     }
 
     /**

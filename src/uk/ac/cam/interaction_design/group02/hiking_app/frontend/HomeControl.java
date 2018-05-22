@@ -87,7 +87,7 @@ public class HomeControl extends GridPane {
 
             //Display current weather icon
             Image bgImg = Utils.getBackgroundImage(icon);
-            if(icon.equals("clear-night") || icon.equals("partly-cloudy-night")) {
+            if(icon.equals("clear-night") || icon.equals("partly-cloudy-night") || icon.equals("rain")) {
                 todayDate.setStyle("-fx-text-fill: white;");
                 todayGroundCond.setStyle("-fx-text-fill: white;");
                 todayRainProb.setStyle("-fx-text-fill: white;");

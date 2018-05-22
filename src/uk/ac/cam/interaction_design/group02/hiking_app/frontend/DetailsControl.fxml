@@ -71,7 +71,8 @@
         <Label fx:id="notes" GridPane.columnIndex="1" GridPane.rowIndex="1" text="Notes"/>
     </GridPane>
     <LineChart fx:id="linechart" prefHeight="Infinity" prefWidth="Infinity"
-               GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
+               GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS"
+                legendVisible="false">
         <xAxis>
             <NumberAxis fx:id="xAxis"/>
         </xAxis>

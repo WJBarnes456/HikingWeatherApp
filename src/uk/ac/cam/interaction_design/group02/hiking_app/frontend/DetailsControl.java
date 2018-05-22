@@ -126,9 +126,9 @@ public class DetailsControl extends GridPane {
             });
 
             // Set up Y axis
-            linechart.getYAxis().setLabel("Temperatures");
+            linechart.getYAxis().setLabel("Temperature (Celsius)");
 
-            linechart.getData().addAll(series);
+            linechart.getData().add(series);
 
             // Dodgy hack - present the actual points from showing up (the user doesn't need to know)
             // From this StackOverflow answer https://stackoverflow.com/a/39674496

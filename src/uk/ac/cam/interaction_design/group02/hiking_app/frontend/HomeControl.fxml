@@ -48,7 +48,7 @@
                   </font>
               </Label>
           </HBox>
-         <ImageView fx:id="todayWeatherIcon" fitHeight="122.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         <ImageView fx:id="todayWeatherIcon" fitHeight="122.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true" scaleZ="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       </children>
    </AnchorPane>
     <ScrollPane fx:id="hikeScrollPane" prefHeight="275.33" prefWidth="300.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">

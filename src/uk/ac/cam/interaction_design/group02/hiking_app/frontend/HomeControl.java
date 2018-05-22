@@ -70,6 +70,8 @@ public class HomeControl extends GridPane {
         hikes.clear();
         hikeContainer.getChildren().clear();
 
+        weatherPane.toFront();
+
         try {
             ForecastWeatherPoint point = api.getWeatherForPoint(settings.getUserLatitude(), settings.getUserLongitude());
             WeatherData currentWeather = point.getForecastAtTime(System.currentTimeMillis()/1000);

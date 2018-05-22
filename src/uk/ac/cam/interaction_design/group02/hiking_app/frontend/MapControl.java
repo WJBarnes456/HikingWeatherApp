@@ -123,7 +123,7 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
     private void handleAddHike(ActionEvent e) {
         AppSettings settings = AppSettings.getInstance();
         long time = getTime();
-        Hike hike = new Hike("gril z ziomeczkami",
+        Hike hike = new Hike("#location", //will have location name based on latitiude and longitude
                 myPosition.getLatitude(),
                 myPosition.getLongitude(),
                 time+86400*day,

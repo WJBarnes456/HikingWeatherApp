@@ -150,11 +150,11 @@ public class DetailsControl extends GridPane {
     private void setWeatherLabels(WeatherData data) {
         // Convert weather information to strings
         String humidityString = Math.round(data.getHumidity() * 100) + "%";
-        String visibilityString = Double.toString(data.getVisibility());
-        String pressureString = Double.toString(data.getPressure());
+        String visibilityString = Double.toString(data.getVisibility()) + "km";
+        String pressureString = Double.toString(data.getPressure()) + "hpa";
         String tempString = Math.round(data.getAvgTemperatureCelsius()) + "°C";
         String precipProbString = Math.round(data.getPrecipitationProbability() * 100) + "%";
-        String precipIntensityString = Double.toString(data.getPrecipitationIntensity());
+        String precipIntensityString = Double.toString(data.getPrecipitationIntensity()) + "mmph";
 
         // Put strings onto the UI
         humidity.setText(humidityString);

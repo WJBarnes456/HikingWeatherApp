@@ -33,9 +33,6 @@ public class MainWindow extends Application {
     private Button mapButton;
 
     @FXML
-    private Button addButton;
-
-    @FXML
     private Button homeButton;
 
     @FXML
@@ -64,7 +61,6 @@ public class MainWindow extends Application {
 
     private void markAllUnset() {
         markUnset(settingsButton);
-        markUnset(addButton);
         markUnset(mapButton);
         markUnset(homeButton);
     }
@@ -75,7 +71,6 @@ public class MainWindow extends Application {
         mainContainer.setCenter(mapControl);
         markAllUnset();
         markSet(mapButton);
-        markSet(addButton);
     }
 
     @FXML

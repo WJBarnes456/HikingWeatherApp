@@ -17,10 +17,12 @@
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <HBox fx:id="menuBar" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="0" GridPane.vgrow="SOMETIMES">
-        <Button fx:id="homeButton" maxHeight="Infinity" maxWidth="Infinity" onAction="#handleHomeButtonAction" HBox.hgrow="ALWAYS">Home</Button>
-        <Button fx:id="mapButton" maxHeight="Infinity" maxWidth="Infinity" onAction="#handleMapButtonAction" HBox.hgrow="ALWAYS">Map</Button>
-        <Button fx:id="settingsButton" maxHeight="Infinity" maxWidth="Infinity" onAction="#handleSettingsButtonAction" HBox.hgrow="ALWAYS">Settings</Button>
-        <Button fx:id="addButton" maxHeight="Infinity" maxWidth="Infinity" onAction="#handleMapButtonAction" HBox.hgrow="ALWAYS">Add</Button>
+        <Button fx:id="homeButton" maxHeight="Infinity" maxWidth="Infinity" prefWidth="50"
+                onAction="#handleHomeButtonAction" HBox.hgrow="ALWAYS">Home</Button>
+        <Button fx:id="mapButton" maxHeight="Infinity" maxWidth="Infinity" prefWidth="80"
+                onAction="#handleMapButtonAction" HBox.hgrow="ALWAYS" wrapText="true"> Map &#38; Add</Button> <!-- Map & Add -->
+        <Button fx:id="settingsButton" maxHeight="Infinity" maxWidth="Infinity"
+                prefWidth="50" onAction="#handleSettingsButtonAction" HBox.hgrow="ALWAYS">Settings</Button>
     </HBox>
 
     <!--Main container used for embedding the other controls-->

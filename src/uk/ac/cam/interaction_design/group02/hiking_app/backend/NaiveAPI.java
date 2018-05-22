@@ -31,7 +31,7 @@ public class NaiveAPI implements IAPICache {
     /**
      * Tolerance for equality of locations in metres
      */
-    private static final double LOCATION_TOLERANCE_METRES = 5;
+    private static final double LOCATION_TOLERANCE_METRES = 50;
 
     /**
      * URL for doing a typical data lookup - we're only interested in the data for that day.

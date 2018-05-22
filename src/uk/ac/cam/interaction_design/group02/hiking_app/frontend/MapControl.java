@@ -10,6 +10,7 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -130,6 +131,12 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
                  time+86400*day+7200);
         settings.addHike(hike);
 
+        cleanMarker();
+        Alert notification = new Alert(Alert.AlertType.INFORMATION);
+        notification.setTitle("Hike added!");
+        notification.setContentText("Hike successfully added");
+        notification.show();
+
         refresh();
     }
 
@@ -236,7 +243,6 @@ public class MapControl extends BorderPane implements MapComponentInitializedLis
                     "Lat: " + myPosition.getLatitude() + "<br>" +
                     "Long: " + myPosition.getLongitude());
         }
-        // TODO: Implement hike addition, getting weather for this clicked point
 
         MarkerOptions clickMarkerOptions = new MarkerOptions();
         clickMarkerOptions.position(myPosition);

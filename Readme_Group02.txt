@@ -5,6 +5,8 @@ Libraries used:
  - GMapsFX
  - JSON.org JSON library
 
+Weather icons come from Climacons, with recolouring. http://adamwhitcroft.com/climacons/
+ 
 Setup instructions:
  - Duplicate APIKey_Example, rename it to APIKey, and put your key files into it.
  - DarkSky API Key obtained by signing up at "https://darksky.net/dev/docs"

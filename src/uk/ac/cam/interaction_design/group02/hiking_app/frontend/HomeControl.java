@@ -87,18 +87,26 @@ public class HomeControl extends GridPane {
 
             //Display current weather icon
             Image bgImg = Utils.getBackgroundImage(icon);
-            if(icon.equals("clear-night") || icon.equals("partly-cloudy-night") || icon.equals("rain")) {
-                todayDate.setStyle("-fx-text-fill: white;");
-                todayGroundCond.setStyle("-fx-text-fill: white;");
-                todayRainProb.setStyle("-fx-text-fill: white;");
-                todayTemp.setStyle("-fx-text-fill: white;");
-                todayTempLabel.setStyle("-fx-text-fill: white;");
-                groundCondLabel.setStyle("-fx-text-fill: white;");
-                rainProbLabel.setStyle("-fx-text-fill: white;");
-                locationLabel.setStyle("-fx-text-fill: white;");
+            switch(icon) {
+                case "clear-night":
+                case "partly-cloudy-night":
+                case "rain":
+                case "sleet":
+                    todayDate.setStyle("-fx-text-fill: white;");
+                    todayGroundCond.setStyle("-fx-text-fill: white;");
+                    todayRainProb.setStyle("-fx-text-fill: white;");
+                    todayTemp.setStyle("-fx-text-fill: white;");
+                    todayTempLabel.setStyle("-fx-text-fill: white;");
+                    groundCondLabel.setStyle("-fx-text-fill: white;");
+                    rainProbLabel.setStyle("-fx-text-fill: white;");
+                    locationLabel.setStyle("-fx-text-fill: white;");
+                    break;
+                case "fog":
+                    todayTemp.setStyle("-fx-text-fill: white;");
+                    break;
+                default:
+                    break;
             }
-            if(icon.equals("fog"))
-                todayTemp.setStyle("-fx-text-fill: white;");
             Image weatherIcon = Utils.getWeatherIcon(icon);
 
             BackgroundImage b = new BackgroundImage(bgImg,
